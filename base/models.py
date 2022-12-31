@@ -2,6 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+
+class Brand(models.Model):
+    name = models.CharField(max_length=250)
+
+class Category(models.Model):
+    name = models.CharField(max_length=250)
+
+class Color(models.Model):
+    name = models.CharField(max_length=250)
+
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=250, null=True, blank=True)
