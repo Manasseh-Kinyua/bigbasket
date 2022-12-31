@@ -14,3 +14,6 @@ def getRoutes(request):
         "api/orders/id/",
     ]
     return Response(routes)
+
+def getProducts(request):
+    return Response('')

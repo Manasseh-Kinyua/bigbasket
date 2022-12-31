@@ -40,10 +40,10 @@ products = [
   },
   {
     '_id': '4',
-    'name': 'Sony Playstation 4 Pro White Version',
+    'name': 'Beats By Dr. Dre Powerbeats Pro Totally Bluetooth Earphones',
     'image': '/images/playstation.jpg',
     'description':
-      'The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music',
+      'Totally wireless high-performance earphones Up to 9 hours of listening time (more than 24 hours with charging case) Adjustable, secure-fit earhooks for lightweight comfort and stability Reinforced design for sweat & water resistance during tough workouts Volume & track controls on each earbud, voice capability, and Auto Play/Pause Powerful, balanced sound with dynamic range and noise isolation.',
     'brand': 'Sony',
     'category': 'Electronics',
     'price': 399.99,
@@ -53,10 +53,10 @@ products = [
   },
   {
     '_id': '5',
-    'name': 'Logitech G-Series Gaming Mouse',
+    'name': 'Nike Air Force 1 Low',
     'image': '/images/mouse.jpg',
     'description':
-      'Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience',
+      'Supreme and Nike paid homage to an NYC classic with the release of the Nike Air Force 1 Low Supreme Black, now available on StockX. This collaboration adds Supreme’s world-renowned Box Logo to the side of a traditional all-black Air Force 1 design.',
     'brand': 'Logitech',
     'category': 'Electronics',
     'price': 49.99,
