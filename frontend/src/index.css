@@ -1,6 +1,7 @@
 main {
     min-height: 80vh;
     margin-top: 5.5rem;
+    background-color: rgb(7, 0, 0);
 }
 
 .fixed-nav {
@@ -11,7 +12,7 @@ main {
 }
 
 .bg {
-    background-color: black;
+    background-color: rgb(17, 17, 17);
 }
 
 .footer {
