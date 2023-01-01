@@ -3,11 +3,11 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 function Footer() {
   return (
-    <footer>
+    <footer className='bg footer'>
       <Container>
         <Row>
             <Col className='text-center text-dark py-3'>
-                copyright &copy; Taskjar
+                copyright &copy; BigBasket
             </Col>
         </Row>
       </Container>
