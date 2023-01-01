@@ -18,3 +18,7 @@ main {
 .footer {
     min-height: 20rem;
 }
+
+.orange-buttons {
+    background-color: #FF4500;
+}

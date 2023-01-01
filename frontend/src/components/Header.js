@@ -11,11 +11,11 @@ function Header() {
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
-      right: -3,
-      top: 1,
+      right: 0,
+      top: -2,
       // border: `2px solid ${theme.palette.background.paper}`,
       border: `2px solid orange`,
-      background: 'orange',
+      background: '#FF4500',
       padding: '0 4px',
     },
   }));
