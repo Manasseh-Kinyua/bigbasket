@@ -5,7 +5,7 @@ import Rating from './Rating'
 
 function Product({ product }) {
   return (
-    <Card style={{backgroundColor:'rgb(17, 17, 17)', border:'1px solid orange', borderRadius:'.2rem'}}>
+    <Card style={{backgroundColor:'rgb(17, 17, 17)',  borderRadius:'.2rem'}}>
         <Link to={`/product/${product.id}`}>
             <Card.Img src={product.image} alt='image' />
             {console.log(product.image)}
