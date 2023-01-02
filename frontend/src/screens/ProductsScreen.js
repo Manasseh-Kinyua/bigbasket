@@ -4,6 +4,8 @@ import Container from '@mui/material/Container';
 import { Row, Col } from 'react-bootstrap'
 import { listProducts } from '../actions/productActions'
 import Product from '../components/Product';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 function ProductsScreen() {
 
@@ -26,13 +28,19 @@ function ProductsScreen() {
           </Col>
           <Col md={9}>
             <h4 className='white-txt'>Products</h4>
-            <Row>
-              {products.map(product => (
-                <Col key={product.id} md={3} className='py-1'>
-                  <Product product={product} />
-                </Col>
-              ))}
-            </Row>
+            {loading ? (
+              <Loader />
+            ) : error  ? (
+              <Message variant='danger'>{error}</Message>
+            ) : (
+              <Row>
+                {products.map(product => (
+                  <Col key={product.id} md={3} className='py-1'>
+                    <Product product={product} />
+                  </Col>
+                ))}
+              </Row>
+            )}
           </Col>
         </Row>
       </Container>
