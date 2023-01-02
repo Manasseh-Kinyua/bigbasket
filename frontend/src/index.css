@@ -19,6 +19,14 @@ main {
     min-height: 20rem;
 }
 
+.white-txt {
+    color: white;
+}
+
+.orange-txt {
+    color: #FF4500;
+}
+
 .orange-buttons {
     background-color: #FF4500;
 }
