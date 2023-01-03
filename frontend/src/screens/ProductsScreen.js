@@ -35,7 +35,7 @@ function ProductsScreen() {
             ) : (
               <Row>
                 {products.map(product => (
-                  <Col key={product.id} md={3} className='py-1'>
+                  <Col key={product.id} md={4} className='py-1 my-4'>
                     <Product product={product} />
                   </Col>
                 ))}
