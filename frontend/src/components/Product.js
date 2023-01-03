@@ -8,7 +8,6 @@ function Product({ product }) {
     <Card style={{backgroundColor:'rgb(17, 17, 17)',  borderRadius:'.2rem'}}>
         <Link to={`/product/${product.id}`}>
             <Card.Img src={product.image} alt='image' />
-            {console.log(product.image)}
         </Link>
         <Card.Body>
             <Link to={`/product/${product.id}`}>
