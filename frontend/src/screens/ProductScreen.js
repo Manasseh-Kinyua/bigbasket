@@ -35,7 +35,7 @@ function ProductScreen() {
               <Image src={product && product.image} alt={product && product.name}/>
             </Col>
             <Col md={6}>
-              <ListGroup style={{backgroundColor:'rgb(17, 17, 17)'}}>
+              <ListGroup className='p-1' style={{backgroundColor:'rgb(17, 17, 17)'}}>
                 <ListGroup.Item style={{backgroundColor:'rgb(17, 17, 17)'}}>
                   <Row className='my-4'>
                     <h4 className='text-light'>{product && product.name}</h4>
@@ -46,6 +46,38 @@ function ProductScreen() {
                     </Col>
                     <Col md={8}>
                       <p className='text-light'>{product && product.description}</p>
+                    </Col>
+                  </Row>
+                  <Row className='my-4'>
+                    <Col md={4}>
+                      <h4 className='text-light'>Category</h4>
+                    </Col>
+                    <Col md={8}>
+                      <p>{product && product.category}</p>
+                    </Col>
+                  </Row>
+                  <Row className='my-4'>
+                    <Col md={4}>
+                      <h4 className='text-light'>Brand</h4>
+                    </Col>
+                    <Col md={8}>
+                      <p>{product && product.brand}</p>
+                    </Col>
+                  </Row>
+                  <Row className='my-4'>
+                    <Col md={4}>
+                      <h4 className='text-light'>Color</h4>
+                    </Col>
+                    <Col md={8}>
+                      <p>{product && product.color}</p>
+                    </Col>
+                  </Row>
+                  <Row className='my-4'>
+                    <Col md={4}>
+                      <h4 className='text-light'>Price</h4>
+                    </Col>
+                    <Col md={8}>
+                      <h3 style={{color:'#FF4500'}}>${product && product.price}</h3>
                     </Col>
                   </Row>
                 </ListGroup.Item>
