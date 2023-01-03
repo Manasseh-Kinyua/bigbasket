@@ -53,7 +53,7 @@ function ProductScreen() {
                       <h4 className='text-light'>Category</h4>
                     </Col>
                     <Col md={8}>
-                      <p>{product && product.category}</p>
+                      <p className='text-light'>{product.category && product.category.name}</p>
                     </Col>
                   </Row>
                   <Row className='my-4'>
@@ -61,7 +61,7 @@ function ProductScreen() {
                       <h4 className='text-light'>Brand</h4>
                     </Col>
                     <Col md={8}>
-                      <p>{product && product.brand}</p>
+                      <p className='text-light'>{product.brand && product.brand.name}</p>
                     </Col>
                   </Row>
                   <Row className='my-4'>
@@ -69,7 +69,7 @@ function ProductScreen() {
                       <h4 className='text-light'>Color</h4>
                     </Col>
                     <Col md={8}>
-                      <p>{product && product.color}</p>
+                      <p className='text-light'>{product.color && product.color.name}</p>
                     </Col>
                   </Row>
                   <Row className='my-4'>
