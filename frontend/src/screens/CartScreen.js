@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import Container from '@mui/material/Container';
+import { Row, Col } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useParams } from 'react-router-dom'
 
 function CartScreen() {
 
     const params = useParams()
+
+    const location = useLocation()
+    const searchParams = new URLSearchParams(location.search)
+    const quantity = searchParams.get('quantity') ? searchParams.get('quantity') : ''
+    console.log(quantity)
 
     useEffect(() => {
 
