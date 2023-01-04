@@ -82,6 +82,14 @@ function ProductScreen() {
                     </Row>
                     <Row className='my-4'>
                       <Col md={4}>
+                        <h4 className='text-light'>Stock</h4>
+                      </Col>
+                      <Col md={8}>
+                        <p className='text-light'>{product.countInStock}</p>
+                      </Col>
+                    </Row>
+                    <Row className='my-4'>
+                      <Col md={4}>
                         <h4 className='text-light'>Price</h4>
                       </Col>
                       <Col md={8}>

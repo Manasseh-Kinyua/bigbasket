@@ -21,7 +21,7 @@ function ProductsScreen() {
   return (
     <div>
       <Container maxWidth="xl">
-        <Row>
+        <Row className='mt-4'>
           <Col md={3}>
             <h4 className='white-txt'>Filters</h4>
           </Col>
