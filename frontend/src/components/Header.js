@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Container, Navbar, Nav, Row, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Badge from '@mui/material/Badge';
@@ -8,6 +9,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
 
 function Header() {
+
+  const cart = useSelector(state => state.cart)
+  const {cartItems} = cart
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -32,7 +36,7 @@ function Header() {
                       <Nav className="ml-auto">
                         <LinkContainer to='/cart'>
                           <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={4} color="secondary">
+                            <StyledBadge badgeContent={cartItems.length} color="secondary">
                               <ShoppingCartIcon style={{color:'#FF4500'}} />
                             </StyledBadge>
                           </IconButton>
