@@ -28,6 +28,12 @@ function CartScreen() {
         dispatch(addToCart(params.id, quantity))
       }
     }, [dispatch, params.id, quantity])
+
+    const removeFromCartHandler = (id) => {
+
+    } 
+
+
   return (
     <div>
       <Container maxWidth='xl'>
@@ -60,7 +66,7 @@ function CartScreen() {
                         </Form.Control>
                       </Form.Group>
                     </Form>
-                    <Button style={{backgroundColor:'rgb(17, 17, 17)'}}><DeleteIcon /></Button>
+                    <Button onClick={() => removeFromCartHandler(item.product)} style={{backgroundColor:'rgb(17, 17, 17)'}}><DeleteIcon /></Button>
                   </div>
                 ))}
               </ListGroup>
