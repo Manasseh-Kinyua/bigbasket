@@ -77,6 +77,19 @@ products = [
     'rating': 4,
     'numReviews': 12,
   },
+  {
+    '_id': '7',
+    'name': 'Meta Quest Pro',
+    'image': '/images/alexa.jpg',
+    'description':
+      "The Meta Quest Pro is a high-end alternative to the Quest 2, which Meta will continue to sell separately. It's a self-contained VR headset with beefier internal specs and two major new features: mixed reality with a full-color video feed and face tracking via inward-facing cameras.",
+    'brand': 'Amazon',
+    'category': 'Electronics',
+    'price': 529.99,
+    'countInStock': 0,
+    'rating': 4,
+    'numReviews': 12,
+  },
 ]
 
 

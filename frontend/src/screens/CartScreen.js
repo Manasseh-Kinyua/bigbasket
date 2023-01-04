@@ -38,9 +38,8 @@ function CartScreen() {
       <Container maxWidth='xl'>
         <Row className='mt-4'>
           <Link className='text-light my-3' to='/products'>Back to Products</Link>
+          <h3 className='text-light'>MY CART</h3>
           <Col md={8}>
-            <h3 className='text-light'>MY CART</h3>
-
             {cartItems.length < 1 ? (
               <Message variant='info'>Ooops!!! Seems like you have not started shopping. Shop in order to see your Cart</Message>
             ) : (
@@ -70,6 +69,32 @@ function CartScreen() {
                 ))}
               </ListGroup>
             )}
+          </Col>
+          <Col md={4}>
+            <ListGroup>
+              <ListGroup.Item style={{backgroundColor:'rgb(17, 17, 17)'}} className='p-3'>
+                <h2 className='text-light'>Cart Subtotal</h2>
+                <Row className='p-3'>
+                  <Col md={6}>
+                    <h3 className='text-light small-letters'>Total Items</h3>
+                  </Col>
+                  <Col md={6}>
+                    <h3 style={{color:'#FF4500'}}>{cartItems.reduce((acc, item) => acc + Number(item.quantity), 0)}</h3>
+                  </Col>
+                </Row>
+                <Row className='p-3'>
+                  <Col md={6}>
+                    <h3 className='text-light small-letters'>Total Price</h3>
+                  </Col>
+                  <Col md={6}>
+                    <h3 style={{color:'#FF4500'}}>${cartItems.reduce((acc, item) => acc + Number(item.quantity) * Number(item.price), 0)}</h3>
+                  </Col>
+                </Row>
+                <Row className='p-3'>
+                  <Button style={{backgroundColor:'#FF4500'}}>Proceed to Checkout</Button>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
           </Col>
         </Row>
       </Container>
