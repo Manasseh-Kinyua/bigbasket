@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Row, Col, ListGroup, Image, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useParams, Link } from 'react-router-dom'
+import { useLocation, useParams, Link, useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { addToCart, removeFromCart } from '../actions/cartActions'
@@ -11,6 +11,8 @@ import { addToCart, removeFromCart } from '../actions/cartActions'
 function CartScreen() {
 
     const params = useParams()
+    
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -32,6 +34,10 @@ function CartScreen() {
         dispatch(removeFromCart(id))
       }
     } 
+
+    const checkoutHandler = () => {
+      navigate('/shipping')
+    }
 
   return (
     <div>
@@ -91,7 +97,11 @@ function CartScreen() {
                   </Col>
                 </Row>
                 <Row className='p-3'>
-                  <Button style={{backgroundColor:'#FF4500'}}>Proceed to Checkout</Button>
+                  <Button
+                    style={{backgroundColor:'#FF4500'}}
+                    onClick={checkoutHandler}
+                    disabled={cartItems.length < 1}>
+                      Proceed to Checkout</Button>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
