@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useParams, Link } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 function CartScreen() {
 
@@ -17,11 +17,9 @@ function CartScreen() {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
     const quantity = searchParams.get('quantity') ? searchParams.get('quantity') : ''
-    console.log(quantity)
 
     const cart = useSelector(state => state.cart)
     const {cartItems} = cart
-    console.log('CARTITEMS.........', cartItems)
 
     useEffect(() => {
       if(params.id) {
@@ -30,9 +28,10 @@ function CartScreen() {
     }, [dispatch, params.id, quantity])
 
     const removeFromCartHandler = (id) => {
-
+      if(window.confirm("Are you sure you want to remove this item from your cart?")) {
+        dispatch(removeFromCart(id))
+      }
     } 
-
 
   return (
     <div>
