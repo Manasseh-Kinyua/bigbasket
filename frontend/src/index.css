@@ -30,3 +30,9 @@ main {
 .orange-buttons {
     background-color: #FF4500;
 }
+
+.flexed {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
