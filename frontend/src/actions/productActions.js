@@ -34,7 +34,7 @@ export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_DETAILS_REQUEST})
 
-        const {data} = await axios.get(`${GET_SINGLE_PRODUCT_ENDPOINT}${id}`)
+        const {data} = await axios.get(`${GET_SINGLE_PRODUCT_ENDPOINT}${id}/`)
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data

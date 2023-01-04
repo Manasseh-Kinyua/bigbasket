@@ -4,12 +4,12 @@ import {
 import axios from "axios";
 import { GET_SINGLE_PRODUCT_ENDPOINT } from "../constants/apiConstants";
 
-export const addToCart = (id, quantity) => async (dispatch) => {
-    const {data} = await axios.get(`${GET_SINGLE_PRODUCT_ENDPOINT}${id}`)
+export const addToCart = (id, quantity) => async (dispatch, getState) => {
+    const {data} = await axios.get(`${GET_SINGLE_PRODUCT_ENDPOINT}${id}/`)
     dispatch({
         type: CART_ADD_ITEM,
         payload: {
-            product: data._id,
+            product: data.id,
             name: data.name,
             image: data.image,
             price: data.price,
