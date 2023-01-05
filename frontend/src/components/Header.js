@@ -42,8 +42,9 @@ function Header() {
                           </IconButton>
                         </LinkContainer>
 
-                          {/* <Nav.Link className='px-5' href='cart'>CART</Nav.Link> */}
-                          <Nav.Link className='px-5' href='login'>Login</Nav.Link>
+                          <LinkContainer to='/login'>
+                            <Nav.Link className='px-5'>Login</Nav.Link>
+                          </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
