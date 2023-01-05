@@ -13,7 +13,7 @@ import {
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
 } from "../constants/userConstants";
-import { USER_LOGIN_ENDPOINT, USER_REGISTER_ENDPOINT } from "../constants/apiConstants";
+import { USER_LOGIN_ENDPOINT, USER_REGISTER_ENDPOINT, GET_USER_DETAILS_ENDPOINT } from "../constants/apiConstants";
 import axios from 'axios'
 
 export const login = (email, password) => async (dispatch) => {
@@ -84,7 +84,8 @@ export const register = (name, email, password) => async (dispatch) => {
         })
     }
 }
-export const getUserDetails = () => async (dispatch, getState) => {
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
     try {
         dispatch({type: USER_DETAILS_REQUEST})
 
@@ -99,8 +100,8 @@ export const getUserDetails = () => async (dispatch, getState) => {
             }
         }
 
-        const {data} = await axios.post(
-            `${GET_USER_DETAILS_ENDPOINT}profile/`,
+        const {data} = await axios.get(
+            `${GET_USER_DETAILS_ENDPOINT}${id}/`,
             config
         )
 

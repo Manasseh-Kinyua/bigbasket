@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { stripBasename } from '@remix-run/router';
+import { getUserDetails } from '../actions/userActions';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileScreen() {
     
@@ -13,6 +15,29 @@ function ProfileScreen() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
+
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+    console.log(userInfo)
+
+    const userDetails = useSelector(state => state.userDetails)
+    const {loading, error, user} = userDetails
+    console.log(user)
+
+    useEffect(() => {
+        if(!userInfo) {
+            navigate('/login')
+        } else if(!user || user.id !== userInfo.id) {
+            dispatch(getUserDetails('profile'))
+        } else {
+            setName(user.name)
+            setEmail(user.email)
+        }
+    }, [dispatch, userInfo, user])
 
     const submitEditProfile = (e) => {
         e.preventDefault()
