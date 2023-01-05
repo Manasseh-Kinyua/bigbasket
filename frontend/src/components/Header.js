@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Container, Navbar, NavDropdown, Nav, Row, Image } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Badge from '@mui/material/Badge';
@@ -7,8 +7,11 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
+import { logout } from '../actions/userActions';
 
 function Header() {
+
+  const dispatch = useDispatch()
 
   const userLogin = useSelector(state => state.userLogin)
   const {userInfo} = userLogin
@@ -27,7 +30,9 @@ function Header() {
     },
   }));
 
-  const logoutHandler = () => {}
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
 
   return (
     <header className='fixed-nav'>
