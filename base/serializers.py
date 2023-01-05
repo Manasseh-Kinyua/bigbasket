@@ -2,6 +2,11 @@ from rest_framework import serializers
 from .models import Product, Brand, Color, Category
 from django.contrib.auth.models import User
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
+
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
