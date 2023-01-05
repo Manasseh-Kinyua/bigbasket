@@ -15,6 +15,7 @@ import {
     USER_EDIT_PROFILE_REQUEST,
     USER_EDIT_PROFILE_SUCCESS,
     USER_EDIT_PROFILE_FAIL,
+    USER_EDIT_PROFILE_RESET,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -91,7 +92,7 @@ export const userDetailsReducer = (state = {}, action) => {
     }
 }
 
-export const userEditProfileReducer = (state = {}, action) => {
+export const userEditProfileReducer = (state = {user:{}}, action) => {
     switch(action.type) {
         case USER_EDIT_PROFILE_REQUEST:
             return {
@@ -110,6 +111,9 @@ export const userEditProfileReducer = (state = {}, action) => {
                 loading: false,
                 error: action.payload
             }
+
+        case USER_EDIT_PROFILE_RESET:
+            return {user:{}}
 
         default:
             return state

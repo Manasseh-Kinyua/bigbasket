@@ -96,7 +96,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         const {
             userLogin: {userInfo}
         } = getState()
-        console.log('token', userInfo.token)
 
         const config = {
             headers: {
@@ -132,7 +131,6 @@ export const editUserProfile = (user) => async (dispatch, getState) => {
         const {
             userLogin: {userInfo}
         } = getState()
-        console.log('token', userInfo)
 
         const config = {
             headers: {

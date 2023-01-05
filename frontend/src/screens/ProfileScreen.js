@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { stripBasename } from '@remix-run/router';
 import { editUserProfile, getUserDetails } from '../actions/userActions';
 import { useNavigate } from 'react-router-dom';
+import { USER_EDIT_PROFILE_RESET } from '../constants/userConstants';
 
 function ProfileScreen() {
     
@@ -22,7 +22,6 @@ function ProfileScreen() {
 
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
-    console.log(userInfo)
 
     const userDetails = useSelector(state => state.userDetails)
     const {loading, error, user} = userDetails
@@ -33,13 +32,14 @@ function ProfileScreen() {
     useEffect(() => {
         if(!userInfo) {
             navigate('/login')
-        } else if(!user || user.id !== userInfo.id) {
+        } else if(!user || successEditProfile || user.id !== userInfo.id) {
+            dispatch({type: USER_EDIT_PROFILE_RESET})
             dispatch(getUserDetails('profile'))
         } else {
             setName(user.name)
             setEmail(user.email)
         }
-    }, [dispatch, userInfo, user, navigate])
+    }, [dispatch, userInfo, user, navigate, successEditProfile])
 
     const submitEditProfile = (e) => {
         e.preventDefault()
