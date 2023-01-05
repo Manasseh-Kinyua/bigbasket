@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { stripBasename } from '@remix-run/router';
-import { getUserDetails } from '../actions/userActions';
+import { editUserProfile, getUserDetails } from '../actions/userActions';
 import { useNavigate } from 'react-router-dom';
 
 function ProfileScreen() {
@@ -22,9 +22,13 @@ function ProfileScreen() {
 
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
+    console.log(userInfo)
 
     const userDetails = useSelector(state => state.userDetails)
     const {loading, error, user} = userDetails
+
+    const userEditProfile = useSelector(state => state.userEditProfile)
+    const {loading: loadingEditProfile, error: errorEditProfile, success: successEditProfile} = userEditProfile
 
     useEffect(() => {
         if(!userInfo) {
@@ -39,6 +43,17 @@ function ProfileScreen() {
 
     const submitEditProfile = (e) => {
         e.preventDefault()
+
+        if(password != confirmPassword) {
+            setMessage("Passwords do not match")
+        } else {
+            dispatch(editUserProfile({
+                id: user.id,
+                name: name,
+                email: email,
+                password: password
+            }))
+        }
     }
 
   return (
@@ -48,6 +63,9 @@ function ProfileScreen() {
             <Col md={4}>
                 <h2 className='text-light'>PROFILE/UPDATE</h2>
                 <Form onSubmit={submitEditProfile}>
+                    {loadingEditProfile && <Loader/>}
+                    {errorEditProfile && <Message variant='danger'>{errorEditProfile}</Message>}
+                    {message && <Message variant='info'>{message}</Message>}
                     <Form.Group className='my-4' controlId='name'>
                         <Form.Label className='text-light'>Name</Form.Label>
                         <Form.Control
@@ -69,7 +87,6 @@ function ProfileScreen() {
                     <Form.Group className='my-4' controlId='password'>
                         <Form.Label className='text-light'>Password</Form.Label>
                         <Form.Control
-                            required
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -78,7 +95,6 @@ function ProfileScreen() {
                     <Form.Group className='my-4' controlId='confirmpassword'>
                         <Form.Label className='text-light'>Confirm Password</Form.Label>
                         <Form.Control
-                            required
                             type='password'
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}

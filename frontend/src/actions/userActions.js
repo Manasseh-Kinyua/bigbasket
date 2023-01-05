@@ -96,6 +96,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         const {
             userLogin: {userInfo}
         } = getState()
+        console.log('token', userInfo.token)
 
         const config = {
             headers: {
@@ -111,11 +112,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
-            payload: data
-        })
-
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
             payload: data
         })
 
@@ -136,6 +132,7 @@ export const editUserProfile = (user) => async (dispatch, getState) => {
         const {
             userLogin: {userInfo}
         } = getState()
+        console.log('token', userInfo)
 
         const config = {
             headers: {
@@ -144,7 +141,7 @@ export const editUserProfile = (user) => async (dispatch, getState) => {
             }
         }
 
-        const {data} = await axios.get(
+        const {data} = await axios.put(
             EDIT_USER_PROFILE_ENDPOINT,
             user,
             config
@@ -159,6 +156,7 @@ export const editUserProfile = (user) => async (dispatch, getState) => {
             type: USER_LOGIN_SUCCESS,
             payload: data
         })
+        localStorage.setItem('userInfo', JSON.stringify(data))
 
     } catch(error) {
         dispatch({
