@@ -8,10 +8,10 @@ function CheckoutSteps({step1, step2, step3, step4}) {
       <Nav.Item>
         {step1 ? (
             <LinkContainer to='/login'>
-                <Nav.Link>Login</Nav.Link>
+                <Nav.Link style={{color:'orange'}}>Login</Nav.Link>
             </LinkContainer>
         ) : (
-            <Nav.Link disabled>Login</Nav.Link>
+            <Nav.Link style={{color:'orange'}} disabled>Login</Nav.Link>
         )}
         
       </Nav.Item>
@@ -28,7 +28,7 @@ function CheckoutSteps({step1, step2, step3, step4}) {
       <Nav.Item>
         {step3 ? (
             <LinkContainer to='/payment'>
-                <Nav.Link>Payment</Nav.Link>
+                <Nav.Link style={{color:'orange'}}>Payment</Nav.Link>
             </LinkContainer>
         ) : (
             <Nav.Link disabled>Payment</Nav.Link>

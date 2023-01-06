@@ -3,10 +3,14 @@ import Container from '@mui/material/Container';
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps'
+import { useNavigate } from 'react-router-dom';
 
 function ShippingScreen() {
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     const cart = useSelector(state => state.cart)
     const {shippingAddress} = cart
@@ -23,6 +27,7 @@ function ShippingScreen() {
       dispatch(saveShippingAddress({
         address, city, postalCode, country
       }))
+      navigate('/payment')
     }
 
   return (
@@ -30,6 +35,7 @@ function ShippingScreen() {
       <Container maxWidth='xl'>
         <Row>
             <Col className='mx-auto my-4' md={6}>
+                <CheckoutSteps style={{color:'orange'}}  step1 step2/>
                 <Form className='p-4' onSubmit={submitShippingAddressHandler}>
                     <h1 className='text-light'>Shipping</h1>
                     <Form.Group className='my-4' controlId='address'>
