@@ -10,3 +10,4 @@ export const EDIT_USER_PROFILE_ENDPOINT = `${BASE_URL}users/profile/edit/`
 
 export const CREATE_ORDER_ENDPOINT = `${BASE_URL}orders/create/`
 export const GET_SINGLE_ORDER_ENDPOINT = `${BASE_URL}orders/`
+export const PAY_ORDER_ENDPOINT = `${BASE_URL}orders/`
