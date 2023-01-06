@@ -27,7 +27,12 @@ function OrderScreen() {
   return (
     <div>
       <Container maxWidth='xl'>
-        <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : (
+          <Row>
           <h1 className='text-light'>Order</h1>
           <Col md={8}>
                 <ListGroup className='my-1'>
@@ -140,6 +145,7 @@ function OrderScreen() {
                 </ListGroup>
             </Col>
         </Row>
+        )}
       </Container>
     </div>
   )

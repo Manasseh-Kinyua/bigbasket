@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.models import Order, Product, ShippingAddress, OrderItem
 from base.serializers import ProductSerializer, OrderSerializer
+from datetime import datetime
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -60,3 +61,14 @@ def getSingleOrder(request, pk):
     order = Order.objects.get(id=pk)
     serializer = OrderSerializer(order, many=False)
     return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def markOrderAsPaid(request, pk):
+    order = Order.objects.get(id=pk)
+
+    order.paid=True
+    order.paidAt=datetime.now()
+    order.save()
+
+    return('Order Paid Successfully')
