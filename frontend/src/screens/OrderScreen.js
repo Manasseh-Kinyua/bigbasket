@@ -45,13 +45,28 @@ function OrderScreen() {
                     <ListGroup.Item className='p-3' style={{backgroundColor:'rgb(17, 17, 17)'}}>
                         <h4 style={{textDecoration:'underline'}} className='text-light'>Payment</h4>
                         <p className='text-light'>Payment Method: {order && order.paymentMethod}</p>
+                        {order && order.paid ? (
+                          <Message variant='success'>Paid on {order.paidAt.substring(0,10)}</Message>
+                        ) : (
+                          <Message variant={'info'}>Not Paid</Message>
+                        )}
+                    </ListGroup.Item>
+                </ListGroup>
+                <ListGroup className='my-1'>
+                    <ListGroup.Item className='p-3' style={{backgroundColor:'rgb(17, 17, 17)'}}>
+                        <h4 style={{textDecoration:'underline'}} className='text-light'>Delivery</h4>
+                        {order && order.delivered ? (
+                          <Message variant='success'>Delivered on {order.deliveredAt.substring(0,10)}</Message>
+                        ) : (
+                          <Message variant={'info'}>Not Delivered</Message>
+                        )}
                     </ListGroup.Item>
                 </ListGroup>
                 <ListGroup className='my-1'>
                     <ListGroup.Item className='p-3' style={{backgroundColor:'rgb(17, 17, 17)'}}>
                         <h4 style={{textDecoration:'underline'}} className='text-light'>Order Items</h4>
                         {order && order.orderItems < 1 ? (
-                            <Message variant='info'>No Items in your cart. Add Items to your cart in order to place order</Message>
+                            <Message variant='info'>No Items in this order</Message>
                         ) : (
                             <>
                                 {order && order.orderItems.map(item => (
@@ -114,9 +129,13 @@ function OrderScreen() {
                     <ListGroup.Item style={{backgroundColor:'rgb(17, 17, 17)'}}>
                         {loading && <Loader />}
                         {error && <Message variant='danger'>{error}</Message>}
-                        <Button
+                        {order && order.paid ? (
+                          <Message variant='success'>Paid</Message>
+                        ) : (
+                          <Button
                             style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
-                            >Place Order</Button>
+                            >Pay</Button>
+                        )}
                     </ListGroup.Item>
                 </ListGroup>
             </Col>
