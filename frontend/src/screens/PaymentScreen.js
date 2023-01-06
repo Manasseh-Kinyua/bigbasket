@@ -1,11 +1,30 @@
 import React, { useState } from 'react'
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Row, Col, Form, Button } from 'react-bootstrap'
+import { savePaymentMethod } from '../actions/cartActions';
 
 function PaymentScreen() {
 
     const [paymentMethod, setPaymentMethod] = useState('Mpesa')
+
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
+    const cart = useSelector(state => state.cart)
+    const {shippingAddress} = cart
+
+    if(!shippingAddress.address) {
+      navigate('/shipping')
+    }
+
+    const submitPaymentMethodHandler = (e) => {
+      e.preventDefault()
+      dispatch(savePaymentMethod(paymentMethod))
+      navigate('/placeorder')
+    }
 
   return (
     <div>
@@ -13,7 +32,7 @@ function PaymentScreen() {
         <Row>
             <Col className='mx-auto' md={6}>
                 <h1 className='text-light'>Payment</h1>
-                <Form>
+                <Form onSubmit={submitPaymentMethodHandler}>
                     <Form.Group>
                         <Form.Label className='text-light'>Select Payment Method</Form.Label>
                         <Form.Check
