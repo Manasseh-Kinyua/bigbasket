@@ -63,6 +63,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
         const {
             userLogin: {userInfo}
         } = getState()
+        console.log(userInfo.token)
 
         const config = {
             headers: {
@@ -97,6 +98,7 @@ export const payOrder = (id) => async (dispatch, getState) => {
         const {
             userLogin: {userInfo}
         } = getState()
+        console.log(userInfo.token)
 
         const config = {
             headers: {

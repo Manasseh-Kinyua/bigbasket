@@ -71,7 +71,7 @@ def markOrderAsPaid(request, pk):
     order.paidAt=datetime.now()
     order.save()
 
-    return('Order Paid Successfully')
+    return Response('Order Paid Successfully')
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -82,4 +82,4 @@ def markOrderAsDelivered(request, pk):
     order.deliveredAt=datetime.now()
     order.save()
 
-    return('Order Paid Successfully')
+    return Response('Order Paid Successfully')

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Button } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { getOrderDetails } from '../actions/orderActions';
+import { getOrderDetails, payOrder } from '../actions/orderActions';
 
 function OrderScreen() {
 
@@ -13,17 +13,34 @@ function OrderScreen() {
 
   const dispatch = useDispatch()
 
+  const navigate = useNavigate()
+
+  const userLogin = useSelector(state => state.userLogin)
+  const {userInfo} = userLogin
+
   const orderDetails = useSelector(state => state.orderDetails)
   const {loading, error, order} = orderDetails
+
+  const orderPay = useSelector(state => state.orderPay)
+  const {loading: loadingPayOrder, error: errorPayOrder, success: successPayOrder} = orderPay
 
   if(!loading && !error && order) {
     order.itemsPrice = order.orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0).toFixed(2)
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(params.id))
-  }, [dispatch, params.id])
+    if(!userInfo) {
+      navigate('/login')
+    }
+    if(!order || order.id != params.id || successPayOrder) {
+      dispatch(getOrderDetails(params.id))
+    }
+  }, [dispatch, navigate, userInfo, params.id, successPayOrder])
 
+  const payOrderHandler = () => {
+    dispatch(payOrder(params.id))
+  }
+ 
   return (
     <div>
       <Container maxWidth='xl'>
@@ -139,7 +156,7 @@ function OrderScreen() {
                         ) : (
                           <Button
                             style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
-                            >Pay</Button>
+                            onClick={payOrderHandler}>Pay</Button>
                         )}
                     </ListGroup.Item>
                 </ListGroup>
