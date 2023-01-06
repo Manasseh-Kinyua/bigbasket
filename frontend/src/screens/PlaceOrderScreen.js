@@ -2,14 +2,22 @@ import React, { useEffect } from 'react'
 import Container from '@mui/material/Container';
 import { Row, Col, ListGroup, Image, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { createOrderAction } from '../actions/orderActions';
 
 function PlaceOrderScreen() {
 
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
     const cart = useSelector(state => state.cart)
+
+    const createOrder = useSelector(state => state.createOrder)
+    const {loading, error, success, order} = createOrder
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice > 1000 ? 0 : 10).toFixed(2)
@@ -17,8 +25,22 @@ function PlaceOrderScreen() {
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
     useEffect(() => {
+        if(success) {
+            navigate(`/order/${order.id}`)
+        }
+    }, [success, navigate])
 
-    })
+    const placeOrderHandler = () => {
+        dispatch(createOrderAction({
+            orderItems: cart.cartItems,
+            paymentMethod: cart.paymentMethod,
+            taxPrice: cart.taxPrice,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            totalPrice: cart.totalPrice,
+            shippingAddress: cart.shippingAddress,
+        }))
+    }
 
   return (
     <div>
@@ -107,8 +129,11 @@ function PlaceOrderScreen() {
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item style={{backgroundColor:'rgb(17, 17, 17)'}}>
+                        {loading && <Loader />}
+                        {error && <Message variant='danger'>{error}</Message>}
                         <Button
-                            style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}>Place Order</Button>
+                            style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
+                            onClick={placeOrderHandler}>Place Order</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Col>

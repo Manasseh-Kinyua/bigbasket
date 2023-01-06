@@ -42,7 +42,7 @@ def createOrder(request):
                 product = product,
                 order = order,
                 name = product.name,
-                qty = i['quantity'],
+                quantity = i['quantity'],
                 price = i['price'],
                 image = product.image.url,
             )
