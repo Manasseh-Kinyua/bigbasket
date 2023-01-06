@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { savePaymentMethod } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 function PaymentScreen() {
 
@@ -32,6 +33,7 @@ function PaymentScreen() {
         <Row>
             <Col className='mx-auto' md={6}>
                 <h1 className='text-light'>Payment</h1>
+                <CheckoutSteps step1 step2 step3/>
                 <Form onSubmit={submitPaymentMethodHandler}>
                     <Form.Group>
                         <Form.Label className='text-light'>Select Payment Method</Form.Label>
