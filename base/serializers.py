@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Product, Brand, Color, Category
+from .models import Product, Brand, Color, Category, ShippingAddress, OrderItem
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -69,3 +69,13 @@ class ProductSerializer(serializers.ModelSerializer):
         color = obj.color
         serializer = BrandSerializer(color, many=False)
         return serializer.data
+
+class ShippingAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShippingAddress
+        fields = "__all__"
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = "__all__"

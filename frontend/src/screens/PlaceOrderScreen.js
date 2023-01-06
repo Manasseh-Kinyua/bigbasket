@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 function PlaceOrderScreen() {
 
@@ -24,10 +25,11 @@ function PlaceOrderScreen() {
       <Container maxWidth='xl'>
         <Row>
             <h1 className='text-light'>Place Order</h1>
+            <CheckoutSteps step1 step2 step3 step4/>
             <Col md={8}>
                 <ListGroup className='my-1'>
                     <ListGroup.Item className='p-3' style={{backgroundColor:'rgb(17, 17, 17)'}}>
-                        <h4 style={{textDecoration:'underline'}} className='text-light'>Shipping</h4>
+                        <h4 style={{textDecoration:'underline'}} className='text-light'>Shipping To</h4>
                         <p className='text-light'>Address: {cart.shippingAddress.address}</p>
                         <p className='text-light'>City: {cart.shippingAddress.city}</p>
                         <p className='text-light'>Postal Code: {cart.shippingAddress.postalCode}</p>
