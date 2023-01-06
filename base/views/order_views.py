@@ -53,3 +53,10 @@ def createOrder(request):
         serializer = OrderSerializer(order, many=False)
 
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getSingleOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    serializer = OrderSerializer(order, many=False)
+    return Response(serializer.data)
