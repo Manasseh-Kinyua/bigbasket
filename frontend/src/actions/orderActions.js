@@ -2,8 +2,12 @@ import {
     CREATE_ORDER_REQUEST,
     CREATE_ORDER_SUCCESS,
     CREATE_ORDER_FAIL,
+
+    GET_ORDER_DETAILS_REQUEST,
+    GET_ORDER_DETAILS_SUCCESS,
+    GET_ORDER_DETAILS_FAIL,
 } from "../constants/orderConstants";
-import { CREATE_ORDER_ENDPOINT } from "../constants/apiConstants";
+import { CREATE_ORDER_ENDPOINT, GET_SINGLE_ORDER_ENDPOINT } from "../constants/apiConstants";
 import { CART_CLEAR } from "../constants/cartConstants";
 import axios from 'axios'
 
@@ -40,6 +44,40 @@ export const createOrderAction = (order) => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: CREATE_ORDER_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const getOrderDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({type: GET_ORDER_DETAILS_REQUEST})
+
+        const {
+            userLogin: {userInfo}
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(
+            `${GET_SINGLE_ORDER_ENDPOINT}${id}`,
+            config
+        )
+
+        dispatch({
+            type: GET_ORDER_DETAILS_SUCCESS,
+            payload: data
+        })
+    } catch(error) {
+        dispatch({
+            type: GET_ORDER_DETAILS_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
