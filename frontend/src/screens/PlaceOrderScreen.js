@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrderAction } from '../actions/orderActions';
+import { CREATE_ORDER_RESET } from '../constants/orderConstants';
 
 function PlaceOrderScreen() {
 
@@ -26,6 +27,7 @@ function PlaceOrderScreen() {
 
     useEffect(() => {
         if(success) {
+            dispatch({type: CREATE_ORDER_RESET})
             navigate(`/order/${order.id}`)
         }
     }, [success, navigate])
