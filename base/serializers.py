@@ -83,6 +83,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     orderItems = serializers.SerializerMethodField(read_only=True)
     shippingAddress = serializers.SerializerMethodField(read_only=True)
+    user = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Order
@@ -99,3 +100,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
         except:
             address = False
         return address
+
+    def get_user(self, obj):
+        user = obj.user
+        serializer = UserSerializer(user, many=False)
+        return serializer.data
