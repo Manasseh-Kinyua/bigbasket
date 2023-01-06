@@ -72,3 +72,14 @@ def markOrderAsPaid(request, pk):
     order.save()
 
     return('Order Paid Successfully')
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def markOrderAsDelivered(request, pk):
+    order = Order.objects.get(id=pk)
+
+    order.delivered=True
+    order.deliveredAt=datetime.now()
+    order.save()
+
+    return('Order Paid Successfully')
