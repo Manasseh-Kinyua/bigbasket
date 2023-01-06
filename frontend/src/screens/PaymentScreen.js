@@ -25,7 +25,6 @@ function PaymentScreen() {
                             onChange={(e) => setPaymentMethod(e.target.value)}
                             style={{color:'orange'}}></Form.Check>
                     </Form.Group>
-
                     <Button
                         type='submit'
                         style={{backgroundColor:'#FF4500', marginTop:'1rem'}}>Save</Button>
