@@ -3,6 +3,10 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAIL,
 
+    USER_LIST_REQUEST,
+    USER_LIST_SUCCESS,
+    USER_LIST_FAIL,
+
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
     USER_REGISTER_FAIL,
@@ -17,7 +21,7 @@ import {
     USER_EDIT_PROFILE_SUCCESS,
     USER_EDIT_PROFILE_FAIL,
 } from "../constants/userConstants";
-import { USER_LOGIN_ENDPOINT, USER_REGISTER_ENDPOINT, GET_USER_DETAILS_ENDPOINT, EDIT_USER_PROFILE_ENDPOINT } from "../constants/apiConstants";
+import { USER_LOGIN_ENDPOINT, USER_REGISTER_ENDPOINT, GET_USER_DETAILS_ENDPOINT, EDIT_USER_PROFILE_ENDPOINT, GET_ALL_USERS_ENDPOINT } from "../constants/apiConstants";
 import axios from 'axios'
 
 export const login = (email, password) => async (dispatch) => {
@@ -159,6 +163,41 @@ export const editUserProfile = (user) => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: USER_EDIT_PROFILE_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const getAllUsers = () => async (dispatch, getState) => {
+    try {
+        dispatch({type: USER_LIST_REQUEST})
+
+        const {
+            userLogin: {userInfo}
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(
+            GET_ALL_USERS_ENDPOINT,
+            config
+        )
+
+        dispatch({
+            type: USER_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch(error) {
+        dispatch({
+            type: USER_LIST_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
