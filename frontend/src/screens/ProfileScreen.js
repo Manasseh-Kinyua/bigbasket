@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
+import DoneIcon from '@mui/icons-material/Done';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Form, Button } from 'react-bootstrap'
+import { Row, Col, Form, Button, Table } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { editUserProfile, getUserDetails } from '../actions/userActions';
 import { useNavigate } from 'react-router-dom';
 import { USER_EDIT_PROFILE_RESET } from '../constants/userConstants';
+import { getUserOrders } from '../actions/orderActions';
 
 function ProfileScreen() {
     
@@ -26,6 +30,9 @@ function ProfileScreen() {
     const userDetails = useSelector(state => state.userDetails)
     const {loading, error, user} = userDetails
 
+    const userOrders = useSelector(state => state.userOrders)
+    const {loading: loadingOrders, error: errorOrders, orders} = userOrders
+
     const userEditProfile = useSelector(state => state.userEditProfile)
     const {loading: loadingEditProfile, error: errorEditProfile, success: successEditProfile} = userEditProfile
 
@@ -35,6 +42,7 @@ function ProfileScreen() {
         } else if(!user || successEditProfile || user.id !== userInfo.id) {
             dispatch({type: USER_EDIT_PROFILE_RESET})
             dispatch(getUserDetails('profile'))
+            dispatch(getUserOrders())
         } else {
             setName(user.name)
             setEmail(user.email)
@@ -62,6 +70,8 @@ function ProfileScreen() {
         <Row>
             <Col md={4}>
                 <h2 className='text-light'>PROFILE/UPDATE</h2>
+                {loading && <Loader />}
+                {error && <Message variant='danger'>{error}</Message>}
                 <Form onSubmit={submitEditProfile}>
                     {loadingEditProfile && <Loader/>}
                     {errorEditProfile && <Message variant='danger'>{errorEditProfile}</Message>}
@@ -108,6 +118,54 @@ function ProfileScreen() {
             </Col>
             <Col md={8}>
                 <h2 className='text-light'>MY ORDERS</h2>
+                {loadingOrders ? (
+                    <Loader />
+                ) : errorOrders ? (
+                    <Message variant='danger'>{errorOrders}</Message>
+                ) : (
+                    <Table striped responsive className='table-sm'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>DATE</th>
+                                <th>TOTAL PRICE</th>
+                                <th>PAID</th>
+                                <th>DELIVERED</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {orders && orders.map(order => (
+                                <tr key={order.id}>
+                                    <td>{order.id}</td>
+                                    <td>{order.created.substring(0,10)}</td>
+                                    <td style={{color:'#FF4500'}}>${order.totalPrice}</td>
+                                    <td>
+                                        {order.paid ? (
+                                            <DoneIcon style={{color:'green'}} />
+                                        ) : (
+                                            <CancelOutlinedIcon style={{color:'red'}}  />
+                                        )}
+                                    </td>
+                                    <td>
+                                        {order.delivered ? (
+                                            <DoneIcon style={{color:'green'}} />
+                                        ) : (
+                                            <CancelOutlinedIcon style={{color:'red'}}  />
+                                        )}
+                                    </td>
+                                    <td>
+                                        <LinkContainer style={{backgroundColor:'#FF4500'}} to={`/order/${order.id}`}>
+                                            <Button
+                                                className='btn-sm'
+                                                style={{backgroundColor:'#FF4500'}}>details</Button>
+                                        </LinkContainer>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                )}
             </Col>
         </Row>
       </Container>

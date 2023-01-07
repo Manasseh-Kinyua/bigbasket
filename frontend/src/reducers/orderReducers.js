@@ -107,7 +107,7 @@ export const userOrdersReducer = (state = {orders:[]}, action) => {
         case GET_USER_ORDERS_SUCCESS:
             return {
                 loading: false,
-                orders: payload,
+                orders: action.payload,
             }
 
         case GET_USER_ORDERS_FAIL:
