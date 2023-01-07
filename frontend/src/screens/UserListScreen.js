@@ -1,34 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import DoneIcon from '@mui/icons-material/Done';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Row, Table, Button } from 'react-bootstrap'
+import { Row, Table, Button, Alert } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { getAllUsers } from '../actions/userActions';
+import { deleteUser, getAllUsers } from '../actions/userActions';
 
 function UserListScreen() {
+
+    const [show, setShow] = useState(false)
 
     const dispatch = useDispatch()
 
     const userList = useSelector(state => state.userList)
     const {loading, error, users} = userList
 
+    const userDelete = useSelector(state => state.userDelete)
+    const {loading: loadingDeleteUser, error: errorDeleteUser, success: successDeleteUser} = userDelete
+
     useEffect(() => {
         dispatch(getAllUsers())
-    }, [dispatch])
+    }, [dispatch, successDeleteUser])
 
-    const deleteUserHandler = (id) => {}
+    const deleteUserHandler = (id) => {
+        if(window.confirm("Are you sure you wnat to remove this user?")) {
+            dispatch(deleteUser(id))
+            setShow(true)
+        } 
+    }
 
   return (
     <div>
       <Container maxWidth='xl'>
         <Row>
             <h3 className='text-light'>USERS</h3>
+            <Alert variant="success" onClose={() => setShow(false)} show={show} dismissible>
+                    User Deleted Successfully!
+            </Alert>
+
             {loading ? (
                 <Loader />
             ) : error ? (
