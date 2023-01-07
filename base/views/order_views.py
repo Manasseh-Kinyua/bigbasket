@@ -91,7 +91,7 @@ def markOrderAsPaid(request, pk):
     return Response('Order Paid Successfully')
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def markOrderAsDelivered(request, pk):
     order = Order.objects.get(id=pk)
 

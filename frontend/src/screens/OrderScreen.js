@@ -5,7 +5,7 @@ import { Row, Col, ListGroup, Image, Button } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { getOrderDetails, payOrder } from '../actions/orderActions';
+import { deliverOrder, getOrderDetails, payOrder } from '../actions/orderActions';
 
 function OrderScreen() {
 
@@ -24,6 +24,9 @@ function OrderScreen() {
   const orderPay = useSelector(state => state.orderPay)
   const {loading: loadingPayOrder, error: errorPayOrder, success: successPayOrder} = orderPay
 
+  const orderDeliver = useSelector(state => state.orderDeliver)
+  const {loading: loadingDeliverOrder, error: errorDeliverOrder, success: successDeliverOrder} = orderDeliver
+
   if(!loading && !error && order) {
     order.itemsPrice = order.orderItems.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0).toFixed(2)
   }
@@ -32,13 +35,17 @@ function OrderScreen() {
     if(!userInfo) {
       navigate('/login')
     }
-    if(!order || order.id != params.id || successPayOrder) {
+    if(!order || order.id != params.id || successPayOrder || successDeliverOrder) {
       dispatch(getOrderDetails(params.id))
     }
-  }, [dispatch, navigate, userInfo, params.id, successPayOrder])
+  }, [dispatch, navigate, userInfo, params.id, successPayOrder, successDeliverOrder])
 
   const payOrderHandler = () => {
     dispatch(payOrder(params.id))
+  }
+
+  const deliverOrderHandler = (id) => {
+    dispatch(deliverOrder(id))
   }
  
   return (
@@ -161,6 +168,24 @@ function OrderScreen() {
                               disabled={!userInfo}
                               style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
                               onClick={payOrderHandler}>Pay</Button>
+                          </>
+                        )}
+                    </ListGroup.Item>
+                    <ListGroup.Item style={{backgroundColor:'rgb(17, 17, 17)'}}>
+                        {loading && <Loader />}
+                        {error && <Message variant='danger'>{error}</Message>}
+                        {order && order.delivered ? (
+                          <Message variant='success'>Delivered</Message>
+                        ) : (
+                          <>
+                            {loadingDeliverOrder && <Loader />}
+                            {errorDeliverOrder && <Message variant='danger'>{errorDeliverOrder}</Message>}
+                            {userInfo && userInfo.isAdmin && order && order.paid && (
+                              <Button
+                                disabled={!userInfo}
+                                style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
+                                onClick={() => deliverOrderHandler(order.id)}>Deliver</Button>
+                            )}
                           </>
                         )}
                     </ListGroup.Item>
