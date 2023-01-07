@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { getUserDetails } from '../actions/userActions';
+import { Link, useParams } from 'react-router-dom'
+import { getUserDetails, getUserDetailsForAdmin } from '../actions/userActions';
 
 function UserEditScreen() {
 
@@ -18,23 +18,32 @@ function UserEditScreen() {
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
-    const userDetails = useSelector(state => state.userDetails)
-    const {loading, error, user} = userDetails
+    const userDetailsForAdmin = useSelector(state => state.userDetailsForAdmin)
+    const {loading, error, user} = userDetailsForAdmin
     console.log(user)
 
     useEffect(() => {
-      if(!user || userInfo.name != user.name) {
-        dispatch(getUserDetails(params.id))
+      if(!user || user.id !== Number(params.id)) {
+        dispatch(getUserDetailsForAdmin(params.id))
+      } else {
+        setName(user.name)
+        setEmail(user.email)
+        setIsAdmin(user.isAdmin)
       }
-    }, [dispatch, params.id])
+    }, [dispatch, params.id, user])
+
+    const submitEditUserHandler = (e) => {
+      e.preventDefault()
+    }
 
   return (
     <div>
       <Container maxWidth='xl'>
         <Row>
             <Col className='mx-auto my-5' md={4}>
+              <Link className='text-light my-5' to='/admin/users'>Back to User List</Link>
                 <h3 className='text-light'>USER/EDIT ADMIN STATUS</h3>
-                <Form>
+                <Form onSubmit={submitEditUserHandler}>
                     <Form.Group className='my-4' controlId='name'>
                         <Form.Label className='text-light'>Name</Form.Label>
                         <Form.Control
@@ -59,6 +68,9 @@ function UserEditScreen() {
                             checked={isAdmin}
                             onChange={(e) => setIsAdmin(e.target.checked)}></Form.Check>
                     </Form.Group>
+                    <Button
+                        type='submit'
+                        style={{backgroundColor:'red', width:'100%'}}>Update</Button>
                 </Form>
             </Col>
         </Row>
