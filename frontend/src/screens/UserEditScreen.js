@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { getUserDetails } from '../actions/userActions';
 
 function UserEditScreen() {
 
@@ -9,9 +11,22 @@ function UserEditScreen() {
     const [email, setEmail] = useState('')
     const [isAdmin, setIsAdmin] = useState('')
 
-    useEffect(() => {
+    const params = useParams()
 
-    })
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+    const userDetails = useSelector(state => state.userDetails)
+    const {loading, error, user} = userDetails
+    console.log(user)
+
+    useEffect(() => {
+      if(!user || userInfo.name != user.name) {
+        dispatch(getUserDetails(params.id))
+      }
+    }, [dispatch, params.id])
 
   return (
     <div>

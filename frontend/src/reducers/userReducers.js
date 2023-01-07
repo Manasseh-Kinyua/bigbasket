@@ -20,6 +20,11 @@ import {
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
 
+    USER_DETAILS_FOR_ADMIN_REQUEST,
+    USER_DETAILS_FOR_ADMIN_SUCCESS,
+    USER_DETAILS_FOR_ADMIN_FAIL,
+    USER_DETAILS_FOR_ADMIN_RESET,
+
     USER_EDIT_PROFILE_REQUEST,
     USER_EDIT_PROFILE_SUCCESS,
     USER_EDIT_PROFILE_FAIL,
@@ -94,6 +99,33 @@ export const userDetailsReducer = (state = {}, action) => {
                 loading: false,
                 error: action.payload
             }
+
+        default:
+            return state
+    }
+}
+
+export const userDetailsForAdminReducer = (state = {user:{}}, action) => {
+    switch(action.type) {
+        case USER_DETAILS_FOR_ADMIN_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_DETAILS_FOR_ADMIN_SUCCESS:
+            return {
+                loading: false,
+                user: action.payload
+            }
+
+        case USER_DETAILS_FOR_ADMIN_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        case USER_DETAILS_FOR_ADMIN_RESET:
+            return {user:{}}
 
         default:
             return state
