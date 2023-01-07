@@ -65,6 +65,20 @@ function Header() {
                               <Nav.Link className='px-5'>Login</Nav.Link>
                             </LinkContainer>
                           )}
+
+                          {userInfo && userInfo.isAdmin && (
+                            <NavDropdown className='px-5' title="Manager" id='manager'>
+                              <LinkContainer to='/admin/users'>
+                                <NavDropdown.Item>Users</NavDropdown.Item>
+                              </LinkContainer>
+                              <LinkContainer to='/admin/orders'>
+                                <NavDropdown.Item>Orders</NavDropdown.Item>
+                              </LinkContainer>
+                              <LinkContainer to='/admin/products'>
+                                <NavDropdown.Item>Products</NavDropdown.Item>
+                              </LinkContainer>
+                            </NavDropdown>
+                          )}
                           
                         </Nav>
                     </Navbar.Collapse>
