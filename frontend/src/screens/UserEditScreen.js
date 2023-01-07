@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { editUserDetails, getUserDetails, getUserDetailsForAdmin } from '../actions/userActions';
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { USER_EDIT_DETAILS_RESET } from '../constants/userConstants';
+import { USER_DETAILS_FOR_ADMIN_RESET, USER_EDIT_DETAILS_RESET } from '../constants/userConstants';
 
 function UserEditScreen() {
 
@@ -33,6 +33,7 @@ function UserEditScreen() {
       if(successEdit) {
         navigate('/admin/users')
         dispatch({type: USER_EDIT_DETAILS_RESET})
+        dispatch({type: USER_DETAILS_FOR_ADMIN_RESET})
       }
       if(!user || user.id !== Number(params.id)) {
         dispatch(getUserDetailsForAdmin(params.id))

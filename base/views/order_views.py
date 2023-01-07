@@ -56,6 +56,13 @@ def createOrder(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getAllOrders(request):
+    orders = Order.objects.all()
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getSingleOrder(request, pk):
     order = Order.objects.get(id=pk)
