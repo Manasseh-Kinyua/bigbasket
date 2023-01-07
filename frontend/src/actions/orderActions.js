@@ -3,10 +3,13 @@ import {
     CREATE_ORDER_SUCCESS,
     CREATE_ORDER_FAIL,
 
+    ORDER_LIST_REQUEST,
+    ORDER_LIST_SUCCESS,
+    ORDER_LIST_FAIL,
+
     PAY_ORDER_REQUEST,
     PAY_ORDER_SUCCESS,
     PAY_ORDER_FAIL,
-    PAY_ORDER_RESET,
 
     GET_ORDER_DETAILS_REQUEST,
     GET_ORDER_DETAILS_SUCCESS,
@@ -16,7 +19,7 @@ import {
     GET_USER_ORDERS_SUCCESS,
     GET_USER_ORDERS_FAIL,
 } from "../constants/orderConstants";
-import { CREATE_ORDER_ENDPOINT, GET_SINGLE_ORDER_ENDPOINT, GET_USER_ORDERS_ENDPOINT, PAY_ORDER_ENDPOINT } from "../constants/apiConstants";
+import { CREATE_ORDER_ENDPOINT, GET_ALL_ORDERS_ENDPOINT, GET_SINGLE_ORDER_ENDPOINT, GET_USER_ORDERS_ENDPOINT, PAY_ORDER_ENDPOINT } from "../constants/apiConstants";
 import { CART_CLEAR } from "../constants/cartConstants";
 import axios from 'axios'
 
@@ -53,6 +56,40 @@ export const createOrderAction = (order) => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: CREATE_ORDER_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const getAllOrders = () => async (dispatch, getState) => {
+    try {
+        dispatch({type: ORDER_LIST_REQUEST})
+
+        const {
+            userLogin: {userInfo}
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(
+            GET_ALL_ORDERS_ENDPOINT,
+            config
+        )
+
+        dispatch({
+            type: ORDER_LIST_SUCCESS,
+            payload: data
+        })
+    } catch(error) {
+        dispatch({
+            type: ORDER_LIST_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
