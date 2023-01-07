@@ -42,6 +42,8 @@ function UserListScreen() {
             <Alert variant="success" onClose={() => setShow(false)} show={show} dismissible>
                     User Deleted Successfully!
             </Alert>
+            {loadingDeleteUser && <Loader />}
+            {errorDeleteUser && <Message variant='danger'>{errorDeleteUser}</Message>}
 
             {loading ? (
                 <Loader />
