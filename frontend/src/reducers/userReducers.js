@@ -29,6 +29,11 @@ import {
     USER_EDIT_PROFILE_SUCCESS,
     USER_EDIT_PROFILE_FAIL,
     USER_EDIT_PROFILE_RESET,
+
+    USER_EDIT_DETAILS_REQUEST,
+    USER_EDIT_DETAILS_SUCCESS,
+    USER_EDIT_DETAILS_FAIL,
+    USER_EDIT_DETAILS_RESET,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -153,6 +158,33 @@ export const userEditProfileReducer = (state = {user:{}}, action) => {
             }
 
         case USER_EDIT_PROFILE_RESET:
+            return {user:{}}
+
+        default:
+            return state
+    }
+}
+
+export const userEditDetailsReducer = (state = {user:{}}, action) => {
+    switch(action.type) {
+        case USER_EDIT_DETAILS_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_EDIT_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+
+        case USER_EDIT_DETAILS_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        case USER_EDIT_DETAILS_RESET:
             return {user:{}}
 
         default:
