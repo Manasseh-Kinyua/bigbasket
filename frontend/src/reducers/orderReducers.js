@@ -13,6 +13,11 @@ import {
     PAY_ORDER_FAIL,
     PAY_ORDER_RESET,
 
+    DELIVER_ORDER_REQUEST,
+    DELIVER_ORDER_SUCCESS,
+    DELIVER_ORDER_FAIL,
+    DELIVER_ORDER_RESET,
+
     GET_ORDER_DETAILS_REQUEST,
     GET_ORDER_DETAILS_SUCCESS,
     GET_ORDER_DETAILS_FAIL,
@@ -118,6 +123,33 @@ export const orderPayReducer = (state = {}, action) => {
             }
 
         case PAY_ORDER_RESET:
+            return {}
+
+        default:
+            return state
+    }
+}
+
+export const orderDeliverReducer = (state = {}, action) => {
+    switch(action.type) {
+        case DELIVER_ORDER_REQUEST:
+            return {
+                loading: true
+            }
+
+        case DELIVER_ORDER_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+            }
+
+        case DELIVER_ORDER_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        case DELIVER_ORDER_RESET:
             return {}
 
         default:
