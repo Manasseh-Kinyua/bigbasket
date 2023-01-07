@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { getUserDetails, getUserDetailsForAdmin } from '../actions/userActions';
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { editUserDetails, getUserDetails, getUserDetailsForAdmin } from '../actions/userActions';
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { USER_EDIT_DETAILS_RESET } from '../constants/userConstants';
 
 function UserEditScreen() {
 
@@ -15,14 +18,22 @@ function UserEditScreen() {
 
     const dispatch = useDispatch()
 
+    const navigate = useNavigate()
+
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
     const userDetailsForAdmin = useSelector(state => state.userDetailsForAdmin)
     const {loading, error, user} = userDetailsForAdmin
-    console.log(user)
+
+    const userEditDetails = useSelector(state => state.userEditDetails)
+    const {loading: loadingEdit, error: errorEdit, success: successEdit} = userEditDetails
 
     useEffect(() => {
+      if(successEdit) {
+        navigate('/admin/users')
+        dispatch({type: USER_EDIT_DETAILS_RESET})
+      }
       if(!user || user.id !== Number(params.id)) {
         dispatch(getUserDetailsForAdmin(params.id))
       } else {
@@ -30,10 +41,15 @@ function UserEditScreen() {
         setEmail(user.email)
         setIsAdmin(user.isAdmin)
       }
-    }, [dispatch, params.id, user])
+    }, [dispatch, params.id, user, successEdit, navigate])
 
     const submitEditUserHandler = (e) => {
       e.preventDefault()
+
+      dispatch(editUserDetails({
+        id: params.id,
+        name, email, isAdmin
+      }))
     }
 
   return (
@@ -43,7 +59,14 @@ function UserEditScreen() {
             <Col className='mx-auto my-5' md={4}>
               <Link className='text-light my-5' to='/admin/users'>Back to User List</Link>
                 <h3 className='text-light'>USER/EDIT ADMIN STATUS</h3>
-                <Form onSubmit={submitEditUserHandler}>
+                {loading ? (
+                  <Loader />
+                ) : error ? (
+                  <Message variant='danger'>{error}</Message>
+                ) : (
+                  <Form onSubmit={submitEditUserHandler}>
+                    {loadingEdit && <Loader />}
+                    {errorEdit && <Message variant='danger'>{errorEdit}</Message>}
                     <Form.Group className='my-4' controlId='name'>
                         <Form.Label className='text-light'>Name</Form.Label>
                         <Form.Control
@@ -72,6 +95,7 @@ function UserEditScreen() {
                         type='submit'
                         style={{backgroundColor:'red', width:'100%'}}>Update</Button>
                 </Form>
+                )}
             </Col>
         </Row>
       </Container>

@@ -233,7 +233,7 @@ export const editUserDetails = (user) => async (dispatch, getState) => {
         }
 
         const {data} = await axios.put(
-            `${EDIT_USER_ENDPOINT}${id}/edit/`,
+            `${EDIT_USER_ENDPOINT}${user.id}/edit/`,
             user,
             config
         )
