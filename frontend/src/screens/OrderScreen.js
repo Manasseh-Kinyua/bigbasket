@@ -154,9 +154,14 @@ function OrderScreen() {
                         {order && order.paid ? (
                           <Message variant='success'>Paid</Message>
                         ) : (
-                          <Button
-                            style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
-                            onClick={payOrderHandler}>Pay</Button>
+                          <>
+                            {loadingPayOrder && <Loader />}
+                            {errorPayOrder && <Message variant='danger'>{errorPayOrder}</Message>}
+                            <Button
+                              disabled={!userInfo}
+                              style={{backgroundColor:'#FF4500', marginTop:'1rem', width:'100%'}}
+                              onClick={payOrderHandler}>Pay</Button>
+                          </>
                         )}
                     </ListGroup.Item>
                 </ListGroup>

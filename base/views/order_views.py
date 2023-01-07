@@ -63,7 +63,7 @@ def getSingleOrder(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def markOrderAsPaid(request, pk):
     order = Order.objects.get(id=pk)
 
