@@ -21,6 +21,10 @@ import {
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
 
+    USER_DETAILS_FOR_ADMIN_REQUEST,
+    USER_DETAILS_FOR_ADMIN_SUCCESS,
+    USER_DETAILS_FOR_ADMIN_FAIL,
+
     USER_EDIT_PROFILE_REQUEST,
     USER_EDIT_PROFILE_SUCCESS,
     USER_EDIT_PROFILE_FAIL,
@@ -125,6 +129,41 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: USER_DETAILS_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const getUserDetailsForAdmin = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({type: USER_DETAILS_FOR_ADMIN_REQUEST})
+
+        const {
+            userLogin: {userInfo}
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(
+            `${GET_USER_DETAILS_ENDPOINT}${id}/`,
+            config
+        )
+
+        dispatch({
+            type: USER_DETAILS_FOR_ADMIN_SUCCESS,
+            payload: data
+        })
+
+    } catch(error) {
+        dispatch({
+            type: USER_DETAILS_FOR_ADMIN_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
