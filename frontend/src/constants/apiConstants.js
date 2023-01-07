@@ -12,6 +12,7 @@ export const DELETE_USER_ENDPOINT = `${BASE_URL}users/`
 export const EDIT_USER_ENDPOINT = `${BASE_URL}users/`
 
 export const CREATE_ORDER_ENDPOINT = `${BASE_URL}orders/create/`
+export const GET_ALL_ORDERS_ENDPOINT = `${BASE_URL}orders/`
 export const GET_SINGLE_ORDER_ENDPOINT = `${BASE_URL}orders/`
 export const PAY_ORDER_ENDPOINT = `${BASE_URL}orders/`
 export const GET_USER_ORDERS_ENDPOINT = `${BASE_URL}orders/customer/`
