@@ -6,4 +6,5 @@ urlpatterns = [
     path('<str:pk>/', views.getSingleOrder, name='get-order'),
     path('<str:pk>/pay/', views.markOrderAsPaid, name='pay-order'),
     path('<str:pk>/deliver/', views.markOrderAsDelivered, name='deliver-order'),
+    path('customer/', views.getUserOrders, name='customer-orders'),
 ]
