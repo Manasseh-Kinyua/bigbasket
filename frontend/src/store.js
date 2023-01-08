@@ -12,7 +12,6 @@ const reducer = combineReducers({
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productEdit: productEditReducer,
-
     cart: cartReducer,
 
     userLogin: userLoginReducer,
