@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { createProduct } from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
 function ProductCreateScreen() {
 
@@ -27,8 +28,9 @@ function ProductCreateScreen() {
     useEffect(() => {
         if(success) {
             navigate('/admin/products')
+            dispatch({type: PRODUCT_CREATE_RESET})
         }
-    }, [success, navigate])
+    }, [dispatch, success, navigate])
 
     const submitCreateProductHandler = (e) => {
         e.preventDefault()
@@ -44,7 +46,7 @@ function ProductCreateScreen() {
         <Row>
             <Col className='mx-auto' md={6}>
                 <h3 className='text-light'>PRODUCT/CREATE</h3>
-                <Form onClick={submitCreateProductHandler}>
+                <Form onSubmit={submitCreateProductHandler}>
                     {loading && <Loader />}
                     {error && <Message variant='danger'>{error}</Message>}
                     <Form.Group className='my-4' controlId='name'>

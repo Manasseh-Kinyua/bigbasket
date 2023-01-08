@@ -23,9 +23,9 @@ class Color(models.Model):
 
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
+    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=250, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, default='/def.jpg')
     description = models.TextField(null=True, blank=True)
