@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { createProduct } from '../actions/productActions';
 
 function ProductCreateScreen() {
 
@@ -13,8 +17,25 @@ function ProductCreateScreen() {
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('')
 
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+
+    const productCreate = useSelector(state => state.productCreate)
+    const {loading, error, success} = productCreate
+
+    useEffect(() => {
+        if(success) {
+            navigate('/admin/products')
+        }
+    }, [success, navigate])
+
     const submitCreateProductHandler = (e) => {
         e.preventDefault()
+
+        dispatch(createProduct({
+            name, description, price, stock, color, category, brand
+        }))
     }
 
   return (
@@ -24,6 +45,8 @@ function ProductCreateScreen() {
             <Col className='mx-auto' md={6}>
                 <h3 className='text-light'>PRODUCT/CREATE</h3>
                 <Form onClick={submitCreateProductHandler}>
+                    {loading && <Loader />}
+                    {error && <Message variant='danger'>{error}</Message>}
                     <Form.Group className='my-4' controlId='name'>
                         <Form.Label className='text-light'>Product Name</Form.Label>
                         <Form.Control
