@@ -69,7 +69,7 @@ function ProductCreateScreen() {
                         <Form.Control
                             required
                             type='number'
-                            placeholder='Enter Product Price'
+                            min={0}
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             style={{backgroundColor:'rgb(17, 17, 17)'}}></Form.Control>
@@ -79,7 +79,7 @@ function ProductCreateScreen() {
                         <Form.Control
                             required
                             type='number'
-                            placeholder='Enter Product Stock'
+                            min={0}
                             value={stock}
                             onChange={(e) => setStock(e.target.value)}
                             style={{backgroundColor:'rgb(17, 17, 17)'}}></Form.Control>
