@@ -43,12 +43,17 @@ function ProductListScreen() {
     }
   }
 
+  const toCreateProductHandler = () => {
+    navigate('/admin/product/create')
+  }
+
   return (
     <div>
       <Container maxWidth='xl'>
         <div style={{display:'flex', justifyContent:'flex-end'}} className='my-3'>
             <Button
-                style={{backgroundColor:'#FF4500'}}>ADD PRODUCT</Button>
+                style={{backgroundColor:'#FF4500'}}
+                onClick={toCreateProductHandler}>ADD PRODUCT</Button>
         </div>
         <Row>
             <h3 className='text-light'>PRODUCTS</h3>
