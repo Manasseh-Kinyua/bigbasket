@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { createProduct } from '../actions/productActions';
@@ -22,15 +22,21 @@ function ProductCreateScreen() {
 
     const navigate = useNavigate()
 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
     const productCreate = useSelector(state => state.productCreate)
     const {loading, error, success} = productCreate
 
     useEffect(() => {
+        if(!userInfo || !userInfo.isAdmin) {
+            navigate('/login')
+        }
         if(success) {
             navigate('/admin/products')
             dispatch({type: PRODUCT_CREATE_RESET})
         }
-    }, [dispatch, success, navigate])
+    }, [dispatch, success, navigate, userInfo])
 
     const submitCreateProductHandler = (e) => {
         e.preventDefault()
@@ -45,6 +51,7 @@ function ProductCreateScreen() {
       <Container maxWidth='xl'>
         <Row>
             <Col className='mx-auto' md={6}>
+                <Link style={{marginBottom:'1rem'}} className='text-light my-5' to='/admin/products'>Back to Product List</Link>
                 <h3 className='text-light'>PRODUCT/CREATE</h3>
                 <Form onSubmit={submitCreateProductHandler}>
                     {loading && <Loader />}
