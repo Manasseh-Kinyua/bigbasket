@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Row, Col, Form, Button, Table, Image } from 'react-bootstrap'
+import { Row, Button, Table, Image, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -9,10 +9,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { getAllOrders } from '../actions/orderActions';
-import { useEffect } from 'react';
-import { listProducts } from '../actions/productActions';
+import { useEffect, useState } from 'react';
+import { deleteProduct, listProducts } from '../actions/productActions';
 
 function ProductListScreen() {
+
+  const [show, setShow] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -24,14 +26,22 @@ function ProductListScreen() {
   const productList = useSelector(state => state.productList)
   const {loading, error, products} = productList
 
+  const productDelete = useSelector(state => state.productDelete)
+  const {loading: loadingDelete, error: errorDelete, success: successDelete} = productDelete
+
   useEffect(() => {
     if(!userInfo && !userInfo.isAdmin) {
       navigate('/login')
     }
     dispatch(listProducts())
-  }, [dispatch, navigate, userInfo])
+  }, [dispatch, navigate, userInfo, successDelete])
 
-  const deleteProductHandler = (id) => {}
+  const deleteProductHandler = (id) => {
+    if(window.confirm("Are you sure you want to delete this product?")) {
+      dispatch(deleteProduct(id))
+      setShow(true)
+    }
+  }
 
   return (
     <div>
@@ -42,6 +52,11 @@ function ProductListScreen() {
         </div>
         <Row>
             <h3 className='text-light'>PRODUCTS</h3>
+              <Alert variant="success" onClose={() => setShow(false)} show={show} dismissible>
+                  Product Deleted Successfully!
+              </Alert>
+              {loadingDelete && <Loader />}
+              {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
             {loading ? (
               <Loader />
             ) : error ? (
