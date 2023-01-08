@@ -8,4 +8,5 @@ urlpatterns = [
     path('<str:pk>/', views.getSingleProduct, name='product'),
     path('<str:pk>/delete/', views.deleteProduct, name='delete-product'),
     path('<str:pk>/edit/', views.editProduct, name='edit-product'),
+    path('<str:pk>/review/', views.createProductReview, name='review-product'),
 ]

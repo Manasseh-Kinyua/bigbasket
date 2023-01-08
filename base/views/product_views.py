@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from base.models import Product, Category, Brand, Color
+from base.models import Product, Category, Brand, Color, Review
 from base.serializers import ProductSerializer
 
 # Create your views here.
@@ -91,3 +91,39 @@ def uploadImage(request):
     product.save()
 
     return Response('Image was Uploaded')
+
+def createProductReview(request, pk):
+    product = Product.objects.get(id=pk)
+    user = request.user
+    data = request.data
+
+    reviewAlreadyExists = product.review_set.filter(user=user).exists()
+
+    if reviewAlreadyExists:
+        content = {'detail': 'You have already reviewed this product'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    elif data['rating'] == 0:
+        content = {'detail': 'Please select a rating'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    else:
+        review = Review.objects.create(
+            product=product,
+            user=user,
+            name=user.first_name,
+            rating=data['rating'],
+            comment=data['comment'],
+        )
+
+        reviews = product.review_set.all()
+        product.numReviews = len(reviews)
+
+        total = 0
+        for i in reviews:
+            total += i.rating
+            product.rating = total / len(reviews)
+
+            product.save()
+
+            return Response('Review aded')

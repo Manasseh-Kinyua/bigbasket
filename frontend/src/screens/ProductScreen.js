@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
-import { Row, Col, Image, ListGroup, Form, Button } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Form, Button, FormGroup } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { listProductDetails } from '../actions/productActions'
+import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
 function ProductScreen() {
 
   const [quantity, setQuantity] = useState(1)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
 
   const navigate = useNavigate()
 
@@ -20,12 +23,19 @@ function ProductScreen() {
   const productDetails = useSelector(state => state.productDetails)
   const {loading, error, product} = productDetails
 
+  const userLogin = useSelector(state => state.userLogin)
+  const {userInfo} = userLogin
+
   useEffect(() => {
     dispatch(listProductDetails(params.id))
   }, [dispatch, params.id])
 
   const addToCartHandler = () => {
     navigate(`/cart/${product.id}?quantity=${quantity}`)
+  }
+
+  const submitReviewHandler = (e) => {
+    e.preventDefault()
   }
 
   return (
@@ -149,6 +159,75 @@ function ProductScreen() {
                     </Row>
                   </ListGroup.Item>
                 </ListGroup>
+              </Col>
+              <Col md={4}>
+                <h4 className='text-light'>Reviews</h4>
+                <ListGroup>
+                  {product.reviews && product.reviews.length < 1 && (
+                    <Message variant='info'>There are no reviews for this product yet</Message>
+                  )}
+                  {product.reviews && product.reviews.map(review => (
+                    <ListGroup.Item className='my-1' style={{backgroundColor:'rgb(17, 17, 17)', padding:'1rem'}}>
+                      <p className='text-light'>@{review.name}</p>
+                      <Rating value={review.rating} color={'#FF4500'}/>
+                      <p className='text-light'>{review.created.substring(0, 10)}</p>
+                      <p className='text-light'>{review.comment}</p>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Col>
+              <Col md={4}>
+                <h4 className='text-light'>Write Review</h4>
+                {userInfo ? (
+                  <Form style={{backgroundColor:'rgb(17, 17, 17)', padding:'1rem'}} onSubmit={submitReviewHandler}>
+                  <Form.Group controlId='rating'>
+                    <Row>
+                    <Col  md={4}><Form.Label className='text-light'>Rating</Form.Label></Col>
+                    <Col md={8}>
+                    <Form.Control
+                      as='select'
+                      value={rating}
+                      onChange={(e) => setRating(e.target.value)}
+                      style={{backgroundColor:'rgb(7, 0, 0)'}}>
+                        <option value=''>Select...</option>
+                        <option value='1'>1 - Poor</option>
+                        <option value='2'>2 - Fair</option>
+                        <option value='3'>3 - Good</option>
+                        <option value='4'>4 - Very Good</option>
+                        <option value='5'>5 - Excellent</option>
+                    </Form.Control>
+                    </Col>
+                    </Row>
+                  </Form.Group>
+
+                  <Form.Group className='mt-2' controlId='comment'>
+                    <Row>
+                      <Col md={4}>
+                      <Form.Label className='text-light'>Review</Form.Label>
+                      </Col>
+                      <Col md={8}>
+                        <Form.Control
+                          as='textarea'
+                          row='5'
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          style={{backgroundColor:'rgb(7, 0, 0)'}}>
+
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                    <Button
+                      // disabled={loadingProductReview}
+                      type='submit'
+                      style={{width: '100%'}}
+                      className='bg btn-small'
+                      style={{backgroundColor:'#FF4500', width:'100%', marginTop:'.5rem'}}
+                      >Submit</Button>
+                </Form>
+                ) : (
+                  <Message variant='info'>Kindly login in order to write a review</Message>
+                )}
               </Col>
             </Row>
           </div>
