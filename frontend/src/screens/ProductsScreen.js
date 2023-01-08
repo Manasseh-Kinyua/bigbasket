@@ -37,6 +37,7 @@ function ProductsScreen() {
         <Row className='mt-4'>
           <Col md={3}>
             <h4 className='white-txt'>Filters</h4>
+            <Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label='All' />
             <Row className='my-1'>
               <h6 className='text-light'>categories</h6>
               {loadingCategories ? (
