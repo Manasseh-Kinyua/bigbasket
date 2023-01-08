@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.models import Product, Category, Brand, Color, Review
-from base.serializers import ProductSerializer
+from base.serializers import ProductSerializer, CategorySerializer, BrandSerializer, ColorSerializer
 
 # Create your views here.
 
@@ -129,3 +129,21 @@ def createProductReview(request, pk):
             product.save()
 
             return Response('Review aded')
+
+@api_view(['GET'])
+def getCategories(request):
+    categories = Category.objects.all()
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getBrands(request):
+    brands = Brand.objects.all()
+    serializer = BrandSerializer(brands, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getColors(request):
+    colors = Color.objects.all()
+    serializer = ColorSerializer(colors, many=True)
+    return Response(serializer.data)

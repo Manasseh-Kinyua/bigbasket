@@ -3,6 +3,9 @@ from base.views import product_views as views
 
 urlpatterns = [
     path('', views.getProducts, name='products'),
+    path('categories/', views.getCategories, name='categories'),
+    path('brands/', views.getBrands, name='brands'),
+    path('colors/', views.getColors, name='colors'),
     path('create/', views.createProduct, name='create-product'),
     path('upload/', views.uploadImage, name='upload-product-image'),
     path('<str:pk>/', views.getSingleProduct, name='product'),
