@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Product, Brand, Color, Category, ShippingAddress, OrderItem, Order
+from .models import Product, Brand, Color, Category, ShippingAddress, OrderItem, Order, Review
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,6 +31,11 @@ class UserSerializerWithToken(UserSerializer):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
+
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
@@ -50,6 +55,7 @@ class ProductSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField(read_only=True)
     brand = serializers.SerializerMethodField(read_only=True)
     color = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Product
@@ -68,6 +74,11 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_color(self, obj):
         color = obj.color
         serializer = BrandSerializer(color, many=False)
+        return serializer.data
+
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer(reviews, many=True)
         return serializer.data
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
