@@ -3,6 +3,7 @@ from base.views import product_views as views
 
 urlpatterns = [
     path('', views.getProducts, name='products'),
+    path('top/', views.getTopRatedProducts, name='top-products'),
     path('categories/', views.getCategories, name='categories'),
     path('brands/', views.getBrands, name='brands'),
     path('colors/', views.getColors, name='colors'),
