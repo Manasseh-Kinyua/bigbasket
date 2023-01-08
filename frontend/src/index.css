@@ -11,6 +11,12 @@ main {
     z-index: 5;  
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .bg {
     background-color: rgb(17, 17, 17);
 }
