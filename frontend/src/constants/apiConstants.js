@@ -6,6 +6,7 @@ export const DELETE_PRODUCT_ENDPOINT = `${BASE_URL}products/`
 export const CREATE_PRODUCT_ENDPOINT = `${BASE_URL}products/create/`
 export const EDIT_PRODUCT_ENDPOINT = `${BASE_URL}products/`
 export const UPLOAD_PRODUCT_IMAGE = `${BASE_URL}products/upload/`
+export const CREATE_PRODUCT_REVIEW = `${BASE_URL}products/`
 
 export const USER_LOGIN_ENDPOINT = `${BASE_URL}users/login/`
 export const USER_REGISTER_ENDPOINT = `${BASE_URL}users/register/`
