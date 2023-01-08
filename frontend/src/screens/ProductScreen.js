@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
-import { Row, Col, Image, ListGroup, Form, Button, FormGroup } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Form, Button, FormGroup, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { listProductDetails } from '../actions/productActions'
+import { listProductDetails, reviewProduct } from '../actions/productActions'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -13,6 +13,7 @@ function ProductScreen() {
   const [quantity, setQuantity] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
+  const [show, setShow] = useState(false)
 
   const navigate = useNavigate()
 
@@ -26,9 +27,12 @@ function ProductScreen() {
   const userLogin = useSelector(state => state.userLogin)
   const {userInfo} = userLogin
 
+  const productReview = useSelector(state => state.productReview)
+  const {loading: loadingReview, error: errorReview, success: successReview} = productReview
+
   useEffect(() => {
     dispatch(listProductDetails(params.id))
-  }, [dispatch, params.id])
+  }, [dispatch, params.id, successReview])
 
   const addToCartHandler = () => {
     navigate(`/cart/${product.id}?quantity=${quantity}`)
@@ -36,12 +40,27 @@ function ProductScreen() {
 
   const submitReviewHandler = (e) => {
     e.preventDefault()
+
+    dispatch(reviewProduct({
+      id: params.id,
+      rating, comment
+    }))
+
+    if(successReview) {
+      setShow(true)
+    }
+    setRating(0)
+    setComment('')
+    
   }
 
   return (
     <div>
       <Container maxWidth='xl'>
         <Link className='text-light my-5' to='/products'>Back to Products</Link>
+        <Alert variant="success" onClose={() => setShow(false)} show={show} dismissible>
+          Review Submitted Successfully!
+        </Alert>
         {loading ? (
           <Loader />
         ) : error ? (
@@ -167,7 +186,7 @@ function ProductScreen() {
                     <Message variant='info'>There are no reviews for this product yet</Message>
                   )}
                   {product.reviews && product.reviews.map(review => (
-                    <ListGroup.Item className='my-1' style={{backgroundColor:'rgb(17, 17, 17)', padding:'1rem'}}>
+                    <ListGroup.Item className='my-1' style={{backgroundColor:'rgb(17, 17, 17)', padding:'1rem'}} key={review.id}>
                       <p className='text-light'>@{review.name}</p>
                       <Rating value={review.rating} color={'#FF4500'}/>
                       <p className='text-light'>{review.created.substring(0, 10)}</p>
@@ -180,6 +199,8 @@ function ProductScreen() {
                 <h4 className='text-light'>Write Review</h4>
                 {userInfo ? (
                   <Form style={{backgroundColor:'rgb(17, 17, 17)', padding:'1rem'}} onSubmit={submitReviewHandler}>
+                    {loadingReview && <Loader />}
+                    {errorReview && <Message variant='danger'>{errorReview}</Message>}
                   <Form.Group controlId='rating'>
                     <Row>
                     <Col  md={4}><Form.Label className='text-light'>Rating</Form.Label></Col>
