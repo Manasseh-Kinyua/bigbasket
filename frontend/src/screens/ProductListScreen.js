@@ -23,7 +23,6 @@ function ProductListScreen() {
 
   const productList = useSelector(state => state.productList)
   const {loading, error, products} = productList
-  console.log(products)
 
   useEffect(() => {
     if(!userInfo && !userInfo.isAdmin) {
@@ -72,7 +71,7 @@ function ProductListScreen() {
                       <th className='text-light'>{product.name}</th>
                       <th style={{color:'#FF4500'}}>${product.price}</th>
                       <th className='text-light'>{product.category.name}</th>
-                      <th className='text-light'>{product.brand.brand}</th>
+                      <th className='text-light'>{product.brand.name}</th>
                       <th className='text-light'>{product.color.name}</th>
                       <th className='text-light'>
                         <LinkContainer style={{backgroundColor:'rgb(7, 0, 0)'}} to={`/admin/product/${product.id}/edit`}>
