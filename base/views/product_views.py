@@ -64,6 +64,8 @@ def createProduct(request):
     
     return Response(serializer.data)
 
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
 def editProduct(request, pk):
     data = request.data
     product = Product.objects.get(id=pk)

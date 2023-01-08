@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProductDetails } from '../actions/productActions';
+import { editProduct, listProductDetails } from '../actions/productActions';
+import { PRODUCT_EDIT_RESET } from '../constants/productConstants';
 
 function ProductEditScreen() {
 
@@ -28,7 +29,14 @@ function ProductEditScreen() {
     const productDetails = useSelector(state => state.productDetails)
     const {loading, error, product} = productDetails
 
+    const productEdit = useSelector(state => state.productEdit)
+    const {loading: loadingEdit, error: errorEdit, success: successEdit} = productEdit
+
     useEffect(() => {
+      if(successEdit) {
+        dispatch({type: PRODUCT_EDIT_RESET})
+        navigate('/admin/products')
+      }
       if(!userInfo || !userInfo.isAdmin) {
         navigate('/login')
       } else if(!product || product.id != params.id) {
@@ -40,10 +48,15 @@ function ProductEditScreen() {
         setStock(product.countInStock)
         setDescription(product.description)
       }
-    }, [dispatch, navigate, userInfo, product, params.id])
+    }, [dispatch, navigate, userInfo, product, params.id, successEdit])
 
     const submitEditProductHandler = (e) => {
       e.preventDefault()
+
+      dispatch(editProduct({
+        id: params.id,
+        name, image, price, stock, description
+      }))
     }
 
   return (
@@ -59,8 +72,8 @@ function ProductEditScreen() {
               <Message variant='danger'>{error}</Message>
             ) : (
               <Form onSubmit={submitEditProductHandler}>
-                    {/* {loading && <Loader />} */}
-                    {/* {error && <Message variant='danger'>{error}</Message>} */}
+                    {loadingEdit && <Loader />}
+                    {errorEdit && <Message variant='danger'>{errorEdit}</Message>}
                     <Form.Group className='my-4' controlId='name'>
                         <Form.Label className='text-light'>Product Name</Form.Label>
                         <Form.Control
