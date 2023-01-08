@@ -11,6 +11,10 @@ import {
     PRODUCT_DELETE_SUCCESS,
     PRODUCT_DELETE_FAIL,
 
+    PRODUCT_REVIEW_REQUEST,
+    PRODUCT_REVIEW_SUCCESS,
+    PRODUCT_REVIEW_FAIL,
+
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
     PRODUCT_CREATE_FAIL,
@@ -19,7 +23,7 @@ import {
     PRODUCT_EDIT_SUCCESS,
     PRODUCT_EDIT_FAIL,
 } from "../constants/productConstants";
-import { CREATE_PRODUCT_ENDPOINT, DELETE_PRODUCT_ENDPOINT, EDIT_PRODUCT_ENDPOINT, GET_PRODUCTS_ENDPOINT, GET_SINGLE_PRODUCT_ENDPOINT } from "../constants/apiConstants";
+import { CREATE_PRODUCT_ENDPOINT, CREATE_PRODUCT_REVIEW, DELETE_PRODUCT_ENDPOINT, EDIT_PRODUCT_ENDPOINT, GET_PRODUCTS_ENDPOINT, GET_SINGLE_PRODUCT_ENDPOINT } from "../constants/apiConstants";
 import axios from 'axios'
 
 export const listProducts = () => async (dispatch) => {
@@ -162,6 +166,42 @@ export const editProduct = (product) => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: PRODUCT_EDIT_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const reviewProduct = (review) => async (dispatch, getState) => {
+    try {
+        dispatch({type: PRODUCT_REVIEW_REQUEST})
+
+        const {
+            userLogin: {userInfo}
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.post(
+            `${CREATE_PRODUCT_REVIEW}${review.id}/review/`,
+            review,
+            config
+        )
+
+        dispatch({
+            type: PRODUCT_REVIEW_SUCCESS,
+            payload: data
+        })
+
+    } catch(error) {
+        dispatch({
+            type: PRODUCT_REVIEW_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
