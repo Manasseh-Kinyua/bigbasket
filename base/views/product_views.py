@@ -63,3 +63,17 @@ def createProduct(request):
     serializer = ProductSerializer(product, many=False)
     
     return Response(serializer.data)
+
+def editProduct(request, pk):
+    data = request.data
+    product = Product.objects.get(id=pk)
+
+    product.name = data['name']
+    product.description = data['description']
+    product.price = data['price']
+    product.countInStock = data['stock']
+
+    product.save()
+    serializer = ProductSerializer(product, many=False)
+    
+    return Response(serializer.data)
