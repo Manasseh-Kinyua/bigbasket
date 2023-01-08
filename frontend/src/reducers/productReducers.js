@@ -11,6 +11,18 @@ import {
     PRODUCT_DELETE_SUCCESS,
     PRODUCT_DELETE_FAIL,
 
+    PRODUCT_CATEGORIES_REQUEST,
+    PRODUCT_CATEGORIES_SUCCESS,
+    PRODUCT_CATEGORIES_FAIL,
+
+    PRODUCT_BRANDS_REQUEST,
+    PRODUCT_BRANDS_SUCCESS,
+    PRODUCT_BRANDS_FAIL,
+
+    PRODUCT_COLORS_REQUEST,
+    PRODUCT_COLORS_SUCCESS,
+    PRODUCT_COLORS_FAIL,
+
     PRODUCT_REVIEW_REQUEST,
     PRODUCT_REVIEW_SUCCESS,
     PRODUCT_REVIEW_FAIL,
@@ -42,6 +54,81 @@ export const productListReducer = (state = {products:[]}, action) => {
             }
 
         case PRODUCT_LIST_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+export const categoryListReducer = (state = {categories:[]}, action) => {
+    switch(action.type) {
+        case PRODUCT_CATEGORIES_REQUEST:
+            return {
+                loading: true,
+                categories: []
+            }
+
+        case PRODUCT_CATEGORIES_SUCCESS:
+            return {
+                loading: false,
+                categories: action.payload
+            }
+
+        case PRODUCT_CATEGORIES_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+export const brandListReducer = (state = {brands:[]}, action) => {
+    switch(action.type) {
+        case PRODUCT_BRANDS_REQUEST:
+            return {
+                loading: true,
+                brands: []
+            }
+
+        case PRODUCT_BRANDS_SUCCESS:
+            return {
+                loading: false,
+                brands: action.payload
+            }
+
+        case PRODUCT_BRANDS_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+export const colorListReducer = (state = {colors:[]}, action) => {
+    switch(action.type) {
+        case PRODUCT_COLORS_REQUEST:
+            return {
+                loading: true,
+                colors: []
+            }
+
+        case PRODUCT_COLORS_SUCCESS:
+            return {
+                loading: false,
+                colors: action.payload
+            }
+
+        case PRODUCT_COLORS_FAIL:
             return {
                 loading: false,
                 error: action.payload
