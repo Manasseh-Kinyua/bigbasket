@@ -22,8 +22,20 @@ import {
     PRODUCT_EDIT_REQUEST,
     PRODUCT_EDIT_SUCCESS,
     PRODUCT_EDIT_FAIL,
+
+    PRODUCT_CATEGORIES_REQUEST,
+    PRODUCT_CATEGORIES_SUCCESS,
+    PRODUCT_CATEGORIES_FAIL,
+
+    PRODUCT_BRANDS_REQUEST,
+    PRODUCT_BRANDS_SUCCESS,
+    PRODUCT_BRANDS_FAIL,
+
+    PRODUCT_COLORS_REQUEST,
+    PRODUCT_COLORS_SUCCESS,
+    PRODUCT_COLORS_FAIL,
 } from "../constants/productConstants";
-import { CREATE_PRODUCT_ENDPOINT, CREATE_PRODUCT_REVIEW, DELETE_PRODUCT_ENDPOINT, EDIT_PRODUCT_ENDPOINT, GET_PRODUCTS_ENDPOINT, GET_SINGLE_PRODUCT_ENDPOINT } from "../constants/apiConstants";
+import { CREATE_PRODUCT_ENDPOINT, CREATE_PRODUCT_REVIEW, DELETE_PRODUCT_ENDPOINT, EDIT_PRODUCT_ENDPOINT, GET_PRODUCTS_ENDPOINT, GET_PRODUCT_BRANDS_ENDPOINT, GET_PRODUCT_CATEGORIES_ENDPOINT, GET_PRODUCT_COLORS_ENDPOINT, GET_SINGLE_PRODUCT_ENDPOINT } from "../constants/apiConstants";
 import axios from 'axios'
 
 export const listProducts = () => async (dispatch) => {
@@ -39,6 +51,66 @@ export const listProducts = () => async (dispatch) => {
     catch(error) {
         dispatch({
             type: PRODUCT_LIST_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const listCategories = () => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_CATEGORIES_REQUEST})
+
+        const {data} = await axios.get(GET_PRODUCT_CATEGORIES_ENDPOINT)
+        dispatch({
+            type: PRODUCT_CATEGORIES_SUCCESS,
+            payload: data
+        })
+    }
+    catch(error) {
+        dispatch({
+            type: PRODUCT_CATEGORIES_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const listBrands = () => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_BRANDS_REQUEST})
+
+        const {data} = await axios.get(GET_PRODUCT_BRANDS_ENDPOINT)
+        dispatch({
+            type: PRODUCT_BRANDS_SUCCESS,
+            payload: data
+        })
+    }
+    catch(error) {
+        dispatch({
+            type: PRODUCT_BRANDS_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message
+        })
+    }
+}
+
+export const listColors = () => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_COLORS_REQUEST})
+
+        const {data} = await axios.get(GET_PRODUCT_COLORS_ENDPOINT)
+        dispatch({
+            type: PRODUCT_COLORS_SUCCESS,
+            payload: data
+        })
+    }
+    catch(error) {
+        dispatch({
+            type: PRODUCT_COLORS_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message
