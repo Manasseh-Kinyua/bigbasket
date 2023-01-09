@@ -38,11 +38,11 @@ import {
 import { CREATE_PRODUCT_ENDPOINT, CREATE_PRODUCT_REVIEW, DELETE_PRODUCT_ENDPOINT, EDIT_PRODUCT_ENDPOINT, GET_PRODUCTS_ENDPOINT, GET_PRODUCT_BRANDS_ENDPOINT, GET_PRODUCT_CATEGORIES_ENDPOINT, GET_PRODUCT_COLORS_ENDPOINT, GET_SINGLE_PRODUCT_ENDPOINT } from "../constants/apiConstants";
 import axios from 'axios'
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (keyword='') => async (dispatch) => {
     try {
         dispatch({type: PRODUCT_LIST_REQUEST})
 
-        const {data} = await axios.get(GET_PRODUCTS_ENDPOINT)
+        const {data} = await axios.get(`${GET_PRODUCTS_ENDPOINT}?keyword=${keyword}`)
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
             payload: data

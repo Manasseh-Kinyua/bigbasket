@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import { Row, Col } from 'react-bootstrap'
 import { listBrands, listCategories, listColors, listProducts } from '../actions/productActions'
 import Product from '../components/Product';
+import { Link, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import SearchBox from '../components/SearchBox';
@@ -12,6 +13,10 @@ import SearchBox from '../components/SearchBox';
 function ProductsScreen() {
 
   const dispatch = useDispatch()
+
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  let keyword = searchParams.get('keyword') ? searchParams.get('keyword') : ''
 
   const productList = useSelector(state => state.productList)
   const {loading, error, products} = productList
@@ -26,11 +31,11 @@ function ProductsScreen() {
   const {loading: loadingColors, error: errorColors, colors} = colorList
 
   useEffect(() => {
-    dispatch(listProducts())
+    dispatch(listProducts(keyword))
     dispatch(listCategories())
     dispatch(listBrands())
     dispatch(listColors())
-  }, [dispatch])
+  }, [dispatch, keyword])
 
   return (
     <div>
@@ -41,7 +46,7 @@ function ProductsScreen() {
               <SearchBox />
             </Row>
             <h4 className='white-txt'>Filters</h4>
-            <Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label='All' />
+            <Link to='/products'><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label='All' /></Link>
             <Row className='my-1'>
               <h6 className='text-light'>categories</h6>
               {loadingCategories ? (
@@ -52,7 +57,7 @@ function ProductsScreen() {
                 <>
                 {categories && categories.map(category => (
                   <Col className='my-1' md={4} sm={2} key={category.id}>
-                    <Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={category.name} />
+                    <Link to={`/products?keyword=${category.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={category.name} /></Link>
                   </Col>
                 ))}
                 </>
@@ -68,7 +73,7 @@ function ProductsScreen() {
                 <>
                 {brands && brands.map(brand => (
                   <Col className='my-1' md={4} sm={2} key={brand.id}>
-                    <Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={brand.name} />
+                    <Link to={`/products?keyword=${brand.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={brand.name} /></Link>
                   </Col>
                 ))}
                 </>
@@ -84,7 +89,7 @@ function ProductsScreen() {
                 <>
                 {colors && colors.map(color => (
                   <Col className='my-1' md={4} sm={2} key={color.id}>
-                    <Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={color.name} />
+                    <Link to={`/products?keyword=${color.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={color.name} /></Link>
                   </Col>
                 ))}
                 </>
@@ -93,6 +98,9 @@ function ProductsScreen() {
           </Col>
           <Col style={{marginTop:'5rem'}} md={9}>
             <h4 className='white-txt'>Products</h4>
+            {products && products.length < 1 && (
+              <Message variant='info'>There are no products here yet</Message>
+            )}
             {loading ? (
               <Loader />
             ) : error  ? (

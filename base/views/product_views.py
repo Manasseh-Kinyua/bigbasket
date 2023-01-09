@@ -6,12 +6,23 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from base.models import Product, Category, Brand, Color, Review
 from base.serializers import ProductSerializer, CategorySerializer, BrandSerializer, ColorSerializer
+from django.db.models import Q
 
 # Create your views here.
 
 @api_view(['GET'])
 def getProducts(request):
-    products = Product.objects.all()
+    query = request.query_params.get('keyword')
+    if query == None:
+        query = ''
+
+    products = Product.objects.filter(
+        Q(name__icontains=query) |
+        Q(description__icontains=query) |
+        Q(brand__name__icontains=query) |
+        Q(category__name__icontains=query) |
+        Q(color__name__icontains=query)
+    )
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
