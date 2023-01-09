@@ -7,6 +7,7 @@ import { listBrands, listCategories, listColors, listProducts } from '../actions
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import SearchBox from '../components/SearchBox';
 
 function ProductsScreen() {
 
@@ -36,6 +37,9 @@ function ProductsScreen() {
       <Container maxWidth="xl">
         <Row className='mt-4'>
           <Col md={3}>
+            <Row>
+              <SearchBox />
+            </Row>
             <h4 className='white-txt'>Filters</h4>
             <Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label='All' />
             <Row className='my-1'>
@@ -87,7 +91,7 @@ function ProductsScreen() {
               )}
             </Row>
           </Col>
-          <Col md={9}>
+          <Col style={{marginTop:'5rem'}} md={9}>
             <h4 className='white-txt'>Products</h4>
             {loading ? (
               <Loader />

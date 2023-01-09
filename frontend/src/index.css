@@ -4,6 +4,34 @@ main {
     background-color: rgb(7, 0, 0);
 }
 
+.search-form {
+    background-color: rgb(7, 0, 0)red;
+    padding: .1rem;
+    border: .1rem solid #FF4500;
+    border-radius: 2rem;
+    margin: 1rem 0;
+}
+
+.search-form input {
+    background-color: rgb(7, 0, 0);
+    width: 80%;
+    padding: 1rem;
+    border: none;
+    border-radius: 2rem;
+    color: darkgray;
+}
+
+.search-form input:focus {
+    outline: none;
+    color: darkgray;
+}
+
+.search-form button {
+    background-color: rgb(7, 0, 0);
+    padding: 1rem;
+    border: none;
+}
+
 .fixed-nav {
     position: fixed;
     top: 0;
