@@ -29,7 +29,10 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+MODE=os.getenv("MODE", default="dev")
+
+DEBUG = os.getenv('DEBUG', default=True)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -130,7 +133,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+import dj_database_url
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
+
+if os.getenv('MODE')=="dev":
+   DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bigbasket',
@@ -140,7 +152,22 @@ DATABASES = {
         'PORT': '5432'
     }
 }
-
+# production
+elif os.getenv('MODE')=="prod":
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'pDSggV23jvfJnjsNTCEn',
+        'HOST': 'containers-us-west-44.railway.app',
+        'PORT': '6890',
+    }
+}
+else:
+   DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
