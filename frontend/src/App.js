@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LandingScreen from './screens/LandingScreen';
@@ -22,7 +22,7 @@ import ProductCreateScreen from './screens/ProductCreateScreen';
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <main className="py-3">
           <Routes>
@@ -47,7 +47,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
