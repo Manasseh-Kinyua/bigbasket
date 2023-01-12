@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'storages',
 
     'base.apps.BaseConfig',
 ]
@@ -189,3 +190,11 @@ MEDIA_ROOT = 'static/images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+AWS_QUERYSTRING_AUTH = False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIAYZZNE45H6NM3XFVN'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'bigbasket-uploads'
