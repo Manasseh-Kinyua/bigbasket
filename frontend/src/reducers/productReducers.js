@@ -3,6 +3,10 @@ import {
     PRODUCT_LIST_SUCCESS,
     PRODUCT_LIST_FAIL,
 
+    TOP_PRODUCT_LIST_REQUEST,
+    TOP_PRODUCT_LIST_SUCCESS,
+    TOP_PRODUCT_LIST_FAIL,
+
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
@@ -54,6 +58,31 @@ export const productListReducer = (state = {products:[]}, action) => {
             }
 
         case PRODUCT_LIST_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+
+        default:
+            return state
+    }
+}
+
+export const topProductListReducer = (state = {products:[]}, action) => {
+    switch(action.type) {
+        case TOP_PRODUCT_LIST_REQUEST:
+            return {
+                loading: true,
+                products: []
+            }
+
+        case TOP_PRODUCT_LIST_SUCCESS:
+            return {
+                loading: false,
+                products: action.payload
+            }
+
+        case TOP_PRODUCT_LIST_FAIL:
             return {
                 loading: false,
                 error: action.payload

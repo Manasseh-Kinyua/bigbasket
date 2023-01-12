@@ -57,7 +57,7 @@ function ProductsScreen() {
                 <>
                 {categories && categories.map(category => (
                   <Col className='my-1' md={4} sm={2} key={category.id}>
-                    <Link to={`/products?keyword=${category.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={category.name} /></Link>
+                    <Link className='pointer' to={`/products?keyword=${category.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={category.name} /></Link>
                   </Col>
                 ))}
                 </>
@@ -73,7 +73,7 @@ function ProductsScreen() {
                 <>
                 {brands && brands.map(brand => (
                   <Col className='my-1' md={4} sm={2} key={brand.id}>
-                    <Link to={`/products?keyword=${brand.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={brand.name} /></Link>
+                    <Link className='pointer' to={`/products?keyword=${brand.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={brand.name} /></Link>
                   </Col>
                 ))}
                 </>
@@ -89,7 +89,7 @@ function ProductsScreen() {
                 <>
                 {colors && colors.map(color => (
                   <Col className='my-1' md={4} sm={2} key={color.id}>
-                    <Link to={`/products?keyword=${color.name}`}><Chip style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={color.name} /></Link>
+                    <Link className='pointer' to={`/products?keyword=${color.name}`}><Chip className='pointer' style={{color:'#FF4500', border: '.1rem solid #FF4500'}} variant='outlined' label={color.name} /></Link>
                   </Col>
                 ))}
                 </>

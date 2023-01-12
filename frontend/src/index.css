@@ -1,11 +1,18 @@
 main {
     min-height: 80vh;
     margin-top: 5.5rem;
-    background-color: rgb(7, 0, 0);
+    background-color: #070000;
+}
+
+.hero {
+    background-color: #111111;
+    /* background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%); */
+    min-height: 80vh;
+    margin-top: -1rem;
 }
 
 .search-form {
-    background-color: rgb(7, 0, 0)red;
+    background-color: #070000;
     padding: .1rem;
     border: .1rem solid #FF4500;
     border-radius: 2rem;
@@ -13,7 +20,7 @@ main {
 }
 
 .search-form input {
-    background-color: rgb(7, 0, 0);
+    background-color: #070000;
     width: 80%;
     padding: 1rem;
     border: none;
@@ -42,11 +49,66 @@ main {
 .flex {
     display: flex;
     align-items: center;
+    /* justify-content: center; */
+}
+.flex-col {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     justify-content: center;
 }
 
 .bg {
-    background-color: rgb(17, 17, 17);
+    background-color: #111111;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.hero-box2 {
+    border: 1px solid red;
+    width: 40%;
+    padding: 1rem;
+    margin-left: -90%;
+    margin-top: -60%;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-box3 {
+    border: 1px solid red;
+    width: 40%;
+    padding: 1rem;
+    margin-left: -10%;
+    margin-top: 40%;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-box1 {
+    border: 1px solid red;
+    width: 40%;
+    padding: 1rem;
+    margin-left: -50%;
+    margin-top: -60%;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .footer {
@@ -73,4 +135,37 @@ main {
 
 .small-letters {
     text-transform: lowercase;
+}
+
+/* carousel */
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+}
+.carousel-caption {
+  position: absolute;
+  top: 0;
+}
+
+.carousel-caption h4 {
+  color: #fff;
+}
+
+.carousel img {
+  display:block;
+  height: 300px;
+  padding: 30px;
+  margin: 40px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.carousel a {
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .carousel-caption h2 {
+    font-size: 2.5vw;
+  }
 }
