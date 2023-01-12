@@ -34,7 +34,7 @@ MODE=os.getenv("MODE", default="dev")
 
 DEBUG = os.getenv('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'bigbasket-production.up.railway.app']
 
 
 # Application definition
