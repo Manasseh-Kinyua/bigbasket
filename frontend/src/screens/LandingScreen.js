@@ -41,7 +41,7 @@ function LandingScreen() {
           </span>
         </Col>
       </Row>
-      <Container className='my-3' style={{minHeight:'60vh', marginTop:'4rem'}}  maxWidth='xxl'>
+      <Container className='my-3' style={{minHeight:'60vh', marginTop:'4rem'}}  maxWidth='lg'>
         <h4 className='text-light' style={{textAlign:'center'}}>TOP PRODUCTS</h4>
         <Carousel />
       </Container>

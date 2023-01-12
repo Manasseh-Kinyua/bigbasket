@@ -24,7 +24,6 @@ function ProductCarousel() {
                 <Carousel
                     pause='hover'
                     className='bg'
-                    style={{height:'60vh'}}
                     >
                         {products.map(product => (
                             <Carousel.Item key={product.id}>
