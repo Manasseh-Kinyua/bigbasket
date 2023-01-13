@@ -156,9 +156,9 @@ elif os.getenv('MODE')=="prod":
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'pDSggV23jvfJnjsNTCEn',
-        'HOST': 'containers-us-west-44.railway.app',
-        'PORT': '6890',
+        'PASSWORD': 'Rzb6IHqpolkHezhNLDcb',
+        'HOST': 'containers-us-west-167.railway.app',
+        'PORT': '7494',
     }
 }
 else:
