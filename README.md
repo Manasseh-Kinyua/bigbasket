@@ -40,12 +40,12 @@
 1. Download/clone repo.
 
     ```bash
-      git clone https://github.com/Manasseh-Kinyua/estudiar.git
+      git clone https://github.com/Manasseh-Kinyua/bigbasket.git
     ```
 1. Navigate to project folder.
 
     ```bash
-      cd estudiar
+      cd bigbasket
     ```
     
 1. Create and activate a virtual environment.(may vary across operating systems. This is for linux users.)
