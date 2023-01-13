@@ -8,9 +8,6 @@
 [Manasseh Kinyua](https://github.com/Manasseh-Kinyua)
 
 ## GIF Demo
-![bigbasket](https://user-images.githubusercontent.com/95216131/212268266-f6c9e380-95a0-4b5b-85f0-ec2ce3e4ebd3.gif)
-
-## GIF Demo
 ![bigbasket](https://bigbasket-bucket.s3.eu-west-3.amazonaws.com/bigbasket.gif)
 
 ## Technologies Used
@@ -25,23 +22,19 @@
 
 ## Features
 1. Authentication & Authorization
-1. Create Project
-1. Add project contributors
-1. Create Project Tasks
-1. Assign Tasks
-1. See task Board
-1. Mark task as In-Progress
-1. Mark Task as Done
-1. Delete Task
-1. Edit Project
-1. Delete Project
-1. User Profile
-1. Edit Profile
+1. View products/window shop
+1. Search and filter products
+1. Add items to cart
+1. Remove Items from cart
+1. Checkout: add shipping address, add payment method
+1. Create order
+1. Pay for order
 
  #### Admin Features
- 1. See all Users
- 1. Give admin status to users
- 1. Remove Users
+ 1. Add/Update Products
+ 1. View User
+ 1. Manage user role(give admin status)
+ 1. Mark Orders as delivered
 
 ## Installation
 1. Download/clone repo.
