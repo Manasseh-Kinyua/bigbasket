@@ -1,4 +1,10 @@
-export const BASE_URL = "http://127.0.0.1:8000/api/"
+// export const BASE_URL = "http://127.0.0.1:8000/api/"
+const MODE  = process.env.REACT_APP_MODE
+if(MODE === 'dev') {
+    var BASE_URL = "http://127.0.0.1:8000/api/" 
+} else if(MODE === 'prod') {
+    var BASE_URL = "https://bigbasket.up.railway.app/api/"
+}
 
 export const GET_PRODUCTS_ENDPOINT = `${BASE_URL}products`
 export const GET_TOP_PRODUCTS_ENDPOINT = `${BASE_URL}products/top/`
