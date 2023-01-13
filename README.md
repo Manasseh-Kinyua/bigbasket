@@ -1,8 +1,8 @@
 # BigBasket
-> Task management is one of the major challenges for teams when working on projects. Taskjar is a task management software aimed at aiding teams with assigment, dispatchment and tracking of tasks.
+> BigBasket is an online store aimed as bringing all the best products to customers. It is built with all the core features and functionalities of a modern electronic commerce shop. Focused on customer support, quick deliveries BigBasket aims at growing to the best shopping option for everyone.
 
 # Visit Live App
-[TaskJar Software](https://taskjar.up.railway.app/)
+[BigBasket](https://bigbasket.up.railway.app)
 
 # Developer
 [Manasseh Kinyua](https://github.com/Manasseh-Kinyua)
@@ -18,7 +18,7 @@
 * Django
 * Django Rest Framework & DRF Simple JWT
 * Postgres
-* AWS RDS
+* AWS S3
 
 ## Features
 1. Authentication & Authorization
