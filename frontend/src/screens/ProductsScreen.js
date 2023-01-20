@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Alert } from 'react-bootstrap'
 import { listBrands, listCategories, listColors, listProducts } from '../actions/productActions'
 import Product from '../components/Product';
 import { Link, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import SearchBox from '../components/SearchBox';
+import GuestUser from '../components/GuestUser';
 
 function ProductsScreen() {
 
@@ -40,6 +41,9 @@ function ProductsScreen() {
   return (
     <div>
       <Container maxWidth="xl">
+      <Alert variant='success'>
+        If you are a Recruiter and dont want to create an account, You can login as a Guest User to test my app. <GuestUser />
+      </Alert>
         <Row className='mt-4'>
           <Col md={3}>
             <Row>

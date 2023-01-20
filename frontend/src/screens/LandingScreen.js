@@ -1,8 +1,9 @@
 import React from 'react'
 import Container from '@mui/material/Container';
-import { Button, Row, Col, Card, Image } from 'react-bootstrap'
+import { Button, Row, Col, Card, Image, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import Carousel from '../components/Carousel'
+import GuestUser from '../components/GuestUser';
 
 function LandingScreen() {
 
@@ -14,6 +15,9 @@ function LandingScreen() {
 
   return (
     <div>
+      <Alert variant='success'>
+        If you are a Recruiter and dont want to create an account, You can login as a Guest User to try my app. <GuestUser />
+      </Alert>
       <Row className='hero'>
         <Col className='flex-col' md={6}>
           <h3 className='orange-txt'>SHOP WITH THE BEST ONLINE STORE AROUND</h3>
