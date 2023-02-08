@@ -156,7 +156,7 @@ elif os.getenv('MODE')=="prod":
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'Rzb6IHqpolkHezhNLDcb',
+        'PASSWORD': 'foJ8o95CypTlteiTjqX2',
         'HOST': 'containers-us-west-167.railway.app',
         'PORT': '7494',
     }
