@@ -3,7 +3,8 @@ const MODE  = process.env.REACT_APP_MODE
 if(MODE === 'dev') {
     var BASE_URL = "http://127.0.0.1:8000/api/" 
 } else if(MODE === 'prod') {
-    var BASE_URL = "https://bigbasket.up.railway.app/api/"
+    // var BASE_URL = "https://bigbasket.up.railway.app/api/"
+    var BASE_URL = "https://bigbasket-jade.vercel.app/api/"
     // var BASE_URL = "https://bigbasket-ppgf.onrender.com/api/"
 }
 
