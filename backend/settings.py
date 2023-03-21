@@ -35,7 +35,7 @@ MODE=os.getenv("MODE", default="dev")
 
 DEBUG = os.getenv('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost', 'bigbasket.up.railway.app', 'web-production-00dc.up.railway.app', 'bigbasket-ppgf.onrender.com']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost', 'bigbasket.up.railway.app', 'web-production-00dc.up.railway.app', 'bigbasket-tw6l.onrender.com']
 
 
 # Application definition
@@ -161,6 +161,13 @@ elif os.getenv('MODE')=="prod":
         'PORT': '5432',
     }
 }
+elif os.getenv('MODE')=="onrender":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 #     DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',

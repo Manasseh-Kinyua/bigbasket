@@ -6,6 +6,8 @@ if(MODE === 'dev') {
     // var BASE_URL = "https://bigbasket.up.railway.app/api/"
     var BASE_URL = "https://bigbasket-jade.vercel.app/api/"
     // var BASE_URL = "https://bigbasket-ppgf.onrender.com/api/"
+} else if(MODE === "onrender") {
+    var BASE_URL = "https://bigbasket-tw6l.onrender.com/api/"
 }
 
 export const GET_PRODUCTS_ENDPOINT = `${BASE_URL}products`
