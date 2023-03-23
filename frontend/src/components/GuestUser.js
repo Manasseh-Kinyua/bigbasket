@@ -13,8 +13,8 @@ function GuestUser() {
 
     const dispatch = useDispatch()
 
-    const guestEmail = "guestuser@email.com"
-    const guestPassword = "guest12345"
+    const guestEmail = "nassehkinyua99@gmail.com"
+    const guestPassword = "nasseh82473"
 
     const userLogin = useSelector(state => state.userLogin)
     const {loading, error} = userLogin
